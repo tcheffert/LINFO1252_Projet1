@@ -1,5 +1,7 @@
 #include <semaphore.h>
 #include <pthread.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 // Nombre de fois où les lecteurs et écrivains s'effecturont
 #define N_readings 2540
@@ -44,7 +46,7 @@ void *reader()
         sem_post(&db_reader);
         pthread_mutex_unlock(&z);
 
-        //===== Section critique =====//
+        //===== Section critique : lecture simulée =====//
         process(); // On peut process car les writers sont bloqués par le sémaphore db_writer
 
         pthread_mutex_lock(&mutex_reader);
@@ -54,6 +56,7 @@ void *reader()
 
         pthread_mutex_unlock(&mutex_reader);
     }
+    pthread_exit(0);
 }
 
 // Fonction Writer
@@ -72,7 +75,7 @@ void *writer()
         sem_wait(&db_writer); // bloque les autres writers et vérifie que la database
                               // n'est pas en train d'être lue
 
-        //===== Section critique =====//
+        //===== Section critique: écriture simulée =====//
         // Un seul writer à la fois. On peut write car les lecteurs sont bloqués par le sémaphore db_reader et les autres writers par db_writer
         process();
 
@@ -84,24 +87,53 @@ void *writer()
             sem_post(&db_reader); // libère les lecteurs
         pthread_mutex_unlock(&mutex_writer);
     }
+    pthread_exit(0);
 }
 
 int main(int argc, char const *argv[])
 {
+    if (argc != 3) {
+        printf("Usage: %s <nombre_lecteurs> <nombre_ecrivains>\n", argv[0]);
+        return -1;
+    }
+
+    int nb_readers = atoi(argv[1]);
+    int nb_writers = atoi(argv[2]);
+
+    //Check si les valeurs données par argument sont positives et donc valides
+    if (nb_readers <= 0 || nb_writers <= 0) {
+        printf("Erreur : Le nombre de lecteurs (%d) et le nombre d'écrivains (%d) doit être positif.\n", nb_readers, nb_writers);
+        return -1;
+    }
+
     pthread_mutex_init(&mutex_reader, NULL);
     pthread_mutex_init(&mutex_writer, NULL);
     pthread_mutex_init(&z, NULL);
-    pthread_t writers[2];
-    pthread_t readers[2];
-    sem_init(&db_reader, 0, 1); // initialisation du semaphore pour writer
-    sem_init(&db_writer, 0, 1); // initialisation du semaphore pour reader
-    pthread_create(&writers[0], NULL, writer, NULL);
-    pthread_create(&writers[1], NULL, writer, NULL);
-    pthread_create(&readers[0], NULL, reader, NULL);
-    pthread_create(&readers[1], NULL, reader, NULL);
-    pthread_join(writers[0], NULL);
-    pthread_join(writers[1], NULL);
-    pthread_join(readers[0], NULL);
-    pthread_join(readers[1], NULL);
+    sem_init(&db_reader, 0, 1);
+    sem_init(&db_writer, 0, 1);
+
+    pthread_t writers[nb_writers];
+    pthread_t readers[nb_readers];
+
+    for (int i = 0; i < nb_readers; i++) {
+        pthread_create(&readers[i], NULL, reader, NULL);
+    }
+    for (int i = 0; i < nb_writers; i++) {
+        pthread_create(&writers[i], NULL, writer, NULL);
+    }
+
+    for (int i = 0; i < nb_readers; i++) {
+        pthread_join(readers[i], NULL);
+    }
+    for (int i = 0; i < nb_writers; i++) {
+        pthread_join(writers[i], NULL);
+    }
+
+    pthread_mutex_destroy(&mutex_reader);
+    pthread_mutex_destroy(&mutex_writer);
+    pthread_mutex_destroy(&z);
+    sem_destroy(&db_reader);
+    sem_destroy(&db_writer);
+
     return 0;
 }
