@@ -1,7 +1,4 @@
-#include <semaphore.h>
-#include <pthread.h>
-#include <stdlib.h>
-#include <stdio.h>
+#include "imports.h"
 
 // Nombre de fois où les lecteurs et écrivains s'effecturont
 #define N_readings 2540
