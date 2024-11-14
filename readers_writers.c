@@ -32,11 +32,11 @@ void *reader()
     for (int i = 0; i < N_readings; i++)
     {
 
-        pthread_mutex_lock(&z); // Permet de donner la priorité absolue aux writers
+        pthread_mutex_lock(&z); // Priorité absolue aux writers
 
         sem_wait(&db_reader); // Sémaphore permettant aux écrivains de bloquer les lecteurs
 
-        pthread_mutex_lock(&mutex_reader); //? Mutex pour protéger la variable readcount
+        pthread_mutex_lock(&mutex_reader); // Protège la variable readcount
         readcount++;
 
         if (readcount == 1)
@@ -52,7 +52,7 @@ void *reader()
         pthread_mutex_lock(&mutex_reader);
         readcount--;
         if (readcount == 0)
-            sem_post(&db_writer); // dernier reader libère la database écrivain
+            sem_post(&db_writer); // Last reader libère la database écrivain
 
         pthread_mutex_unlock(&mutex_reader);
     }
@@ -66,16 +66,16 @@ void *writer()
     for (int i = 0; i < N_writings; i++)
     {
 
-        pthread_mutex_lock(&mutex_writer); // Mutex pour protéger la variable writercount
+        pthread_mutex_lock(&mutex_writer); // Protège la variable writercount
         writercount++;
-        if (writercount == 1)     // arrivée du premier writer
-            sem_wait(&db_reader); // bloque les lecteurs
+        if (writercount == 1)     // Arrivée du premier writer
+            sem_wait(&db_reader); // Bloque les lecteurs
         pthread_mutex_unlock(&mutex_writer);
 
-        sem_wait(&db_writer); // bloque les autres writers et vérifie que la database
-                              // n'est pas en train d'être lue
+        sem_wait(&db_writer); // Bloque les autres writers et vérifie que la database n'est pas en train d'être lue
 
         //===== Section critique: écriture simulée =====//
+        // printf("Writer %ld is writing. Writercount: %d\n", pthread_self(), writercount);
         // Un seul writer à la fois. On peut write car les lecteurs sont bloqués par le sémaphore db_reader et les autres writers par db_writer
         process();
 
@@ -86,13 +86,16 @@ void *writer()
         if (writercount == 0)     // départ du dernier writer
             sem_post(&db_reader); // libère les lecteurs
         pthread_mutex_unlock(&mutex_writer);
+
+        // printf("Writer %ld finished writing.\n", pthread_self());
     }
     pthread_exit(0);
 }
 
 int main(int argc, char const *argv[])
 {
-    if (argc != 3) {
+    if (argc != 3)
+    {
         printf("Usage: %s <nombre_lecteurs> <nombre_ecrivains>\n", argv[0]);
         return -1;
     }
@@ -100,8 +103,9 @@ int main(int argc, char const *argv[])
     int nb_readers = atoi(argv[1]);
     int nb_writers = atoi(argv[2]);
 
-    //Check si les valeurs données par argument sont positives et donc valides
-    if (nb_readers <= 0 || nb_writers <= 0) {
+    // Check si les valeurs données par argument sont positives et donc valides
+    if (nb_readers <= 0 || nb_writers <= 0)
+    {
         printf("Erreur : Le nombre de lecteurs (%d) et le nombre d'écrivains (%d) doit être positif.\n", nb_readers, nb_writers);
         return -1;
     }
@@ -115,17 +119,21 @@ int main(int argc, char const *argv[])
     pthread_t writers[nb_writers];
     pthread_t readers[nb_readers];
 
-    for (int i = 0; i < nb_readers; i++) {
+    for (int i = 0; i < nb_readers; i++)
+    {
         pthread_create(&readers[i], NULL, reader, NULL);
     }
-    for (int i = 0; i < nb_writers; i++) {
+    for (int i = 0; i < nb_writers; i++)
+    {
         pthread_create(&writers[i], NULL, writer, NULL);
     }
 
-    for (int i = 0; i < nb_readers; i++) {
+    for (int i = 0; i < nb_readers; i++)
+    {
         pthread_join(readers[i], NULL);
     }
-    for (int i = 0; i < nb_writers; i++) {
+    for (int i = 0; i < nb_writers; i++)
+    {
         pthread_join(writers[i], NULL);
     }
 
