@@ -15,7 +15,6 @@ sem_t db_writer;
 int writercount = 0;
 int readcount = 0; // nombre de readers
 
-
 // Fonction Reader
 void *reader()
 {

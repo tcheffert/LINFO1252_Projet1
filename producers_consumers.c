@@ -1,45 +1,100 @@
 #include "imports.h"
-
 // Initialisation
-#define N 10 // places dans le buffer
+#define N 8            // places dans le buffer
+#define N_elems 131072 // nombre d’éléments produits (et donc consommé)
+
+int total_produced = 0;
+int total_consumed = 0;
+pthread_mutex_t count_mutex; // Pour protéger les counts (éviter que plusieurs threads modif les counts)
+
 pthread_mutex_t mutex;
 sem_t empty;
 sem_t full;
-pthread_mutex_init(&mutex, NULL);
-sem_init(&empty, 0, N); // buffer vide
-sem_init(&full, 0, 0);  // buffer vide
+
+int buffer[N];
+int idxNextItem_P = 0; // Index du prochain item à produire
+int idxNextItem_C = 0; // Index du prochain item à consommer
+
+// Insert un item dans le buffer
+void insert_item(int item)
+{
+    buffer[idxNextItem_P] = item; // Place l'item dans le buffer
+    idxNextItem_P++;              // On update l'index
+
+    // On check si le new idx sort du buffer
+    if (idxNextItem_P >= N)
+        idxNextItem_P = 0; // Si >= taille du buffer, on revient au début
+}
+
+int remove_item()
+{
+    int item = buffer[idxNextItem_C]; // Get l'item
+    idxNextItem_C++;                  // Va au prochain
+    if (idxNextItem_C >= N)
+        idxNextItem_C = 0; // Si >= taille du buffer, on revient au début
+    return item;
+}
+
+int update_counter(int *count)
+{
+    // Check le compteur global et agit en fonction
+    pthread_mutex_lock(&count_mutex);
+    if (*count >= N_elems)
+    { // Dépasse la limite de production ?
+        pthread_mutex_unlock(&count_mutex);
+        return -1; // Return -1 si on a atteint la limite de prod/conso
+    }
+    (*count)++;                         // Add 1 au counter (prod ou conso)
+    pthread_mutex_unlock(&count_mutex); // Débloque le mutex => on évite que plusiers threads touchent au counter
+    return 0;
+}
 
 // Producteur
 void producer(void)
 {
-    int item;
     while (1)
     {
-        item = produce(item);
-        sem_wait(&empty); // attente d’une place libre
-        pthread_mutex_lock(&mutex);
-        // section critique
+        int update = update_counter(&total_produced);
+        if (update == -1)
+            break; // Break si tous les items ont été produit
+
+        // Simule une production en dehors de la zone critique
         process();
-        //-------------//
-        insert_item();
+
+        // item = produce(item);
+        sem_wait(&empty);           // attente d’une place libre
+        pthread_mutex_lock(&mutex); // Mutual exclusion
+
+        // Section critique
+
+        insert_item(total_produced); // On utilise total_prod pour savoir lequel on place dans le buffer
+
         pthread_mutex_unlock(&mutex);
         sem_post(&full); // il y a une place remplie en plus
     }
+    pthread_exit(0);
 }
 
 // Consommateur
 void consumer(void)
 {
-    int item;
     while (1)
     {
+        int update = update_counter(&total_consumed);
+        if (update == -1)
+            break; // On a atteint la limite de consommation!
+
         sem_wait(&full); // attente d’une place remplie
         pthread_mutex_lock(&mutex);
-        // section critique
-        process();
-        //-------------//
-        item = remove(item);
+
+        // Section critique
+
+        int item = remove_item(item);
         pthread_mutex_unlock(&mutex);
         sem_post(&empty); // il y a une place libre en plus
+
+        // Consomme en dehors de la zone critique
+        process();
     }
+    pthread_exit(0);
 }
