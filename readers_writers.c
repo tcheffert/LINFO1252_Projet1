@@ -15,12 +15,6 @@ sem_t db_writer;
 int writercount = 0;
 int readcount = 0; // nombre de readers
 
-// Fonction simulant un traitement
-void process()
-{
-    for (int i = 0; i < 10000; i++)
-        ;
-}
 
 // Fonction Reader
 void *reader()
