@@ -52,7 +52,8 @@ int update_counter(int *count)
 }
 
 // Producteur
-void producer(void)
+//Signature changée pour ne pas avoir de warnings plus tard avec pthread_create
+void* producer(void*)
 {
     while (1)
     {
@@ -78,7 +79,8 @@ void producer(void)
 }
 
 // Consommateur
-void consumer(void)
+//Signature changée pour ne pas avoir de warnings plus tard avec pthread_create
+void* consumer(void*)
 {
     while (1)
     {
@@ -106,36 +108,57 @@ int main(int argc, char const *argv[])
     int num_producers, num_consumers;
 
     // Command-line arguments: ./program <num_producers> <num_consumers>
-    if (argc != 3) {
+    if (argc != 3)
+    {
         printf("Usage: %s <num_producers> <num_consumers>\n", argv[0]);
         return -1;
     }
     num_producers = atoi(argv[1]);
     num_consumers = atoi(argv[2]);
 
-    // Initialize semaphores
-    sem_init(&empty, 0, N); // N empty slots at the start
-    sem_init(&full, 0, 0);  // 0 full slots at the start
+    // Check si les valeurs données par argument sont positives et donc valides
+    if (num_producers <= 0 || num_consumers <= 0)
+    {
+        printf("Erreur : Le nombre de producteurs (%d) et le nombre de consommateurs (%d) doit être positif!\n", num_producers, num_consumers);
+        return -1;
+    }
 
-    // Create producer and consumer threads
+    // Initialise les semaphores
+    sem_init(&empty, 0, N); // N places libres au début
+    sem_init(&full, 0, 0);  // 0 places full au début
+    // Initialise les mutexes
+    pthread_mutex_init(&mutex, NULL);       // Initialise mutex pour la section critique dans producer/consumer
+    pthread_mutex_init(&count_mutex, NULL); // Initialise le mutex qui protège les counters
+
+    // Créé les threads producteurs et consommateurs
     pthread_t producers[num_producers], consumers[num_consumers];
 
-    for (int i = 0; i < num_producers; i++) {
+    for (int i = 0; i < num_producers; i++)
+    {
         pthread_create(&producers[i], NULL, producer, NULL);
-        //printf("Producer thread %d created\n", i);  // Debug message
+        // printf("Producer thread %d created\n", i);  // Debug message
     }
-    for (int i = 0; i < num_consumers; i++) {
+    for (int i = 0; i < num_consumers; i++)
+    {
         pthread_create(&consumers[i], NULL, consumer, NULL);
-        //printf("Consumer thread %d created\n", i);  // Debug message
+        // printf("Consumer thread %d created\n", i);  // Debug message
     }
 
-    // Wait for all threads to finish
-    for (int i = 0; i < num_producers; i++) {
+    // On attend que tous les threads finissent
+    for (int i = 0; i < num_producers; i++)
+    {
         pthread_join(producers[i], NULL);
     }
-    for (int i = 0; i < num_consumers; i++) {
+    for (int i = 0; i < num_consumers; i++)
+    {
         pthread_join(consumers[i], NULL);
     }
+
+    // Clean les mutexes et semaphores
+    pthread_mutex_destroy(&mutex);
+    pthread_mutex_destroy(&count_mutex);
+    sem_destroy(&empty);
+    sem_destroy(&full);
+
     return 0;
 }
-
