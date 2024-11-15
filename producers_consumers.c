@@ -43,7 +43,6 @@ int update_counter(int *count)
     pthread_mutex_lock(&count_mutex);
     if (*count >= N_elems)
     { // Dépasse la limite de production ?
-        printf("Reached limit: %d\n", *count);  // Debug print
         pthread_mutex_unlock(&count_mutex);
         return -1; // Return -1 si on a atteint la limite de prod/conso
     }
@@ -58,7 +57,6 @@ void producer(void)
     while (1)
     {
         int update = update_counter(&total_produced);
-        printf("Total produced: %d\n", total_produced);  // Debug print
         if (update == -1)
             break; // On a atteint la limite de production!
 
@@ -85,8 +83,6 @@ void consumer(void)
     while (1)
     {
         int update = update_counter(&total_consumed);
-        printf("%d", update);
-        printf("Total consumed: %d\n", total_consumed);  // Debug print
         if (update == -1)
             break; // On a atteint la limite de consommation!
 
@@ -116,6 +112,10 @@ int main(int argc, char const *argv[])
     }
     num_producers = atoi(argv[1]);
     num_consumers = atoi(argv[2]);
+
+    // Initialize semaphores
+    sem_init(&empty, 0, N); // N empty slots at the start
+    sem_init(&full, 0, 0);  // 0 full slots at the start
 
     // Create producer and consumer threads
     pthread_t producers[num_producers], consumers[num_consumers];
