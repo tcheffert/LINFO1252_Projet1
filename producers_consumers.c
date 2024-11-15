@@ -36,11 +36,14 @@ int remove_item()
 }
 
 int update_counter(int *count)
+/* Pre: Reçoit une pointer vers un counter et l'update de façon sécursiée
+** Post: Renvoit 0 si le counter a bien été update, -1 si la limite a été atteinte */
 {
     // Check le compteur global et agit en fonction
     pthread_mutex_lock(&count_mutex);
     if (*count >= N_elems)
     { // Dépasse la limite de production ?
+        printf("Reached limit: %d\n", *count);  // Debug print
         pthread_mutex_unlock(&count_mutex);
         return -1; // Return -1 si on a atteint la limite de prod/conso
     }
@@ -55,8 +58,9 @@ void producer(void)
     while (1)
     {
         int update = update_counter(&total_produced);
+        printf("Total produced: %d\n", total_produced);  // Debug print
         if (update == -1)
-            break; // Break si tous les items ont été produit
+            break; // On a atteint la limite de production!
 
         // Simule une production en dehors de la zone critique
         process();
@@ -81,6 +85,8 @@ void consumer(void)
     while (1)
     {
         int update = update_counter(&total_consumed);
+        printf("%d", update);
+        printf("Total consumed: %d\n", total_consumed);  // Debug print
         if (update == -1)
             break; // On a atteint la limite de consommation!
 
@@ -89,7 +95,7 @@ void consumer(void)
 
         // Section critique
 
-        int item = remove_item(item);
+        int item = remove_item();
         pthread_mutex_unlock(&mutex);
         sem_post(&empty); // il y a une place libre en plus
 
@@ -98,3 +104,38 @@ void consumer(void)
     }
     pthread_exit(0);
 }
+
+int main(int argc, char const *argv[])
+{
+    int num_producers, num_consumers;
+
+    // Command-line arguments: ./program <num_producers> <num_consumers>
+    if (argc != 3) {
+        printf("Usage: %s <num_producers> <num_consumers>\n", argv[0]);
+        return -1;
+    }
+    num_producers = atoi(argv[1]);
+    num_consumers = atoi(argv[2]);
+
+    // Create producer and consumer threads
+    pthread_t producers[num_producers], consumers[num_consumers];
+
+    for (int i = 0; i < num_producers; i++) {
+        pthread_create(&producers[i], NULL, producer, NULL);
+        //printf("Producer thread %d created\n", i);  // Debug message
+    }
+    for (int i = 0; i < num_consumers; i++) {
+        pthread_create(&consumers[i], NULL, consumer, NULL);
+        //printf("Consumer thread %d created\n", i);  // Debug message
+    }
+
+    // Wait for all threads to finish
+    for (int i = 0; i < num_producers; i++) {
+        pthread_join(producers[i], NULL);
+    }
+    for (int i = 0; i < num_consumers; i++) {
+        pthread_join(consumers[i], NULL);
+    }
+    return 0;
+}
+
