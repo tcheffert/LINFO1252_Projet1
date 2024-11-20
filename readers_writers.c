@@ -9,24 +9,33 @@ pthread_mutex_t mutex_reader;
 pthread_mutex_t mutex_writer;
 pthread_mutex_t z;
 
-pthread_mutex_t action_count_mutex;  // Mutex to protect the action counters
+pthread_mutex_t totalR_mut;
+pthread_mutex_t totalW_mut;
+
 
 sem_t db_reader;
 sem_t db_writer;
 
+int totalR = 0;
+int totalW = 0;
 int writercount = 0;
 int readcount = 0; // nombre de readers
-
-// Debugging counters
-int total_read_actions = 0;
-int total_write_actions = 0;
 
 // Fonction Reader
 void *reader()
 {
     // Le(s) lecteur(s) effectue(nt) 2540 lectures
-    for (int i = 0; i < N_readings; i++)
+    while (1)
     {
+        pthread_mutex_lock(&totalR_mut);
+        if (totalR >= N_readings)
+        {
+            pthread_mutex_unlock(&totalR_mut);
+            break;
+        }
+        totalR++;
+        pthread_mutex_unlock(&totalR_mut);
+        
 
         pthread_mutex_lock(&z); // Priorité absolue aux writers
 
@@ -52,14 +61,6 @@ void *reader()
 
         pthread_mutex_unlock(&mutex_reader);
 
-        // Incrementing the read actions 
-        pthread_mutex_lock(&action_count_mutex);
-        total_read_actions++;
-        if (i % 100 == 0) {  // Print every 100th action
-            printf("Reader: %d/%d readings completed\n", i, N_readings);
-        }
-        pthread_mutex_unlock(&action_count_mutex);
-
     }
     pthread_exit(0);
 }
@@ -68,8 +69,18 @@ void *reader()
 void *writer()
 {
     // Le(s) écrivain(s) effectue(nt) 640 écritures
-    for (int i = 0; i < N_writings; i++)
+    while (1)
     {
+
+        
+        pthread_mutex_lock(&totalW_mut);
+        if (totalW >= N_writings)
+        {
+            pthread_mutex_unlock(&totalW_mut);
+            break;
+        }
+        totalW++;
+        pthread_mutex_unlock(&totalW_mut);
 
         pthread_mutex_lock(&mutex_writer); // Protège la variable writercount
         writercount++;
@@ -91,14 +102,6 @@ void *writer()
         if (writercount == 0)     // départ du dernier writer
             sem_post(&db_reader); // libère les lecteurs
         pthread_mutex_unlock(&mutex_writer);
-
-        // Incrementing the write actions 
-        pthread_mutex_lock(&action_count_mutex); // Protège la variable writercount
-        total_write_actions++;
-        if (i % 50 == 0) {  // Print every 50th 
-            printf("Writer: %d/%d writings completed\n", i, N_writings);
-        }
-        pthread_mutex_unlock(&action_count_mutex);
 
     }
     pthread_exit(0);
@@ -148,10 +151,6 @@ int main(int argc, char const *argv[])
     {
         pthread_join(writers[i], NULL);
     }
-
-    // After execution, print total actions performed by readers and writers
-    printf("\nTotal read actions: %d\n", total_read_actions);
-    printf("Total write actions: %d\n", total_write_actions);
 
     pthread_mutex_destroy(&mutex_reader);
     pthread_mutex_destroy(&mutex_writer);
