@@ -11,7 +11,9 @@ void process()
 }
 
 int update_counter_with_limit(int *counter, pthread_mutex_t *mutex, int limit)
-/* Pre: Reçoit une pointer vers un counter et l'update de façon sécursiée
+/* Pre: Update un counter et de façon sécursiée en fonction d'une certaine limite
+** Arg: 'counter' un pointeur vers le counter, 'mutex' un pointeur vers le mutex du counter,
+**      'limit' un int qui indique la limite du counter
 ** Post: Renvoit 0 si le counter a bien été update, -1 si la limite a été atteinte */
 {
      // Check le compteur global et agit en fonction
