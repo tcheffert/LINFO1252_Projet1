@@ -9,6 +9,8 @@ pthread_mutex_t mutex_reader;
 pthread_mutex_t mutex_writer;
 pthread_mutex_t z;
 
+pthread_mutex_t action_count_mutex;  // Mutex to protect the action counters
+
 sem_t db_reader;
 sem_t db_writer;
 
@@ -50,11 +52,14 @@ void *reader()
 
         pthread_mutex_unlock(&mutex_reader);
 
-        // Incrementing the read actions counter and printing
+        // Incrementing the read actions 
+        pthread_mutex_lock(&action_count_mutex);
         total_read_actions++;
-        if (i % 100 == 0) {  // Print every 100th action to reduce log clutter
+        if (i % 100 == 0) {  // Print every 100th action
             printf("Reader: %d/%d readings completed\n", i, N_readings);
         }
+        pthread_mutex_unlock(&action_count_mutex);
+
     }
     pthread_exit(0);
 }
@@ -87,11 +92,14 @@ void *writer()
             sem_post(&db_reader); // libère les lecteurs
         pthread_mutex_unlock(&mutex_writer);
 
-        // Incrementing the write actions counter and printing
+        // Incrementing the write actions 
+        pthread_mutex_lock(&action_count_mutex); // Protège la variable writercount
         total_write_actions++;
-        if (i % 50 == 0) {  // Print every 50th action to reduce log clutter
+        if (i % 50 == 0) {  // Print every 50th 
             printf("Writer: %d/%d writings completed\n", i, N_writings);
         }
+        pthread_mutex_unlock(&action_count_mutex);
+
     }
     pthread_exit(0);
 }
