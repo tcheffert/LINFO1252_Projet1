@@ -15,6 +15,10 @@ sem_t db_writer;
 int writercount = 0;
 int readcount = 0; // nombre de readers
 
+// Debugging counters
+int total_read_actions = 0;
+int total_write_actions = 0;
+
 // Fonction Reader
 void *reader()
 {
@@ -45,6 +49,12 @@ void *reader()
             sem_post(&db_writer); // Last reader libère la database écrivain
 
         pthread_mutex_unlock(&mutex_reader);
+
+        // Incrementing the read actions counter and printing
+        total_read_actions++;
+        if (i % 100 == 0) {  // Print every 100th action to reduce log clutter
+            printf("Reader: %d/%d readings completed\n", i, N_readings);
+        }
     }
     pthread_exit(0);
 }
@@ -77,7 +87,11 @@ void *writer()
             sem_post(&db_reader); // libère les lecteurs
         pthread_mutex_unlock(&mutex_writer);
 
-        // printf("Writer %ld finished writing.\n", pthread_self());
+        // Incrementing the write actions counter and printing
+        total_write_actions++;
+        if (i % 50 == 0) {  // Print every 50th action to reduce log clutter
+            printf("Writer: %d/%d writings completed\n", i, N_writings);
+        }
     }
     pthread_exit(0);
 }
@@ -93,7 +107,7 @@ int main(int argc, char const *argv[])
     int nb_readers = atoi(argv[1]);
     int nb_writers = atoi(argv[2]);
 
-    // Check si les valeurs données par argument sont positives et donc valides
+    // Check if the values given by argument are positive and valid
     if (nb_readers <= 0 || nb_writers <= 0)
     {
         printf("Erreur : Le nombre de lecteurs (%d) et le nombre d'écrivains (%d) doit être positif.\n", nb_readers, nb_writers);
@@ -126,6 +140,10 @@ int main(int argc, char const *argv[])
     {
         pthread_join(writers[i], NULL);
     }
+
+    // After execution, print total actions performed by readers and writers
+    printf("\nTotal read actions: %d\n", total_read_actions);
+    printf("Total write actions: %d\n", total_write_actions);
 
     pthread_mutex_destroy(&mutex_reader);
     pthread_mutex_destroy(&mutex_writer);

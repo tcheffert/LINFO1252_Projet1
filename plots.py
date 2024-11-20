@@ -25,7 +25,7 @@ def plot_performance(data, title, output_file):
 
     # Plot the results
     plt.figure(figsize=(10, 6))
-    plt.errorbar(means.index, means, yerr=stds, fmt='-o', capsize=5, label="Execution Time")
+    plt.errorbar(means.index, means, yerr=stds, fmt='-o', capsize=10, label="Execution Time")
     
     # Graph settings
     plt.title(title)
