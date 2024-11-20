@@ -37,7 +37,7 @@ def plot_performance(data, title, output_file):
     plt.legend()
     
     # Show the plot
-    #plt.savefig(output_file)
+    plt.savefig(output_file)
     plt.show()
 
 # Plot for Producers/Consumers

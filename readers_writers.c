@@ -12,12 +12,11 @@ pthread_mutex_t z;
 pthread_mutex_t totalR_mut;
 pthread_mutex_t totalW_mut;
 
-
 sem_t db_reader;
 sem_t db_writer;
 
-int totalR = 0;
-int totalW = 0;
+int totalR = 0; // Nombre de reader jusqu'à présent
+int totalW = 0; // Nombre de write jusqu'à présent
 int writercount = 0;
 int readcount = 0; // nombre de readers
 
@@ -27,15 +26,9 @@ void *reader()
     // Le(s) lecteur(s) effectue(nt) 2540 lectures
     while (1)
     {
-        pthread_mutex_lock(&totalR_mut);
-        if (totalR >= N_readings)
-        {
-            pthread_mutex_unlock(&totalR_mut);
-            break;
-        }
-        totalR++;
-        pthread_mutex_unlock(&totalR_mut);
-        
+        int update = update_counter_with_limit(&totalR, &totalR_mut, N_readings);
+        if (update == -1)
+            break; // On a atteint la limite de readings!
 
         pthread_mutex_lock(&z); // Priorité absolue aux writers
 
@@ -60,7 +53,6 @@ void *reader()
             sem_post(&db_writer); // Last reader libère la database écrivain
 
         pthread_mutex_unlock(&mutex_reader);
-
     }
     pthread_exit(0);
 }
@@ -71,16 +63,9 @@ void *writer()
     // Le(s) écrivain(s) effectue(nt) 640 écritures
     while (1)
     {
-
-        
-        pthread_mutex_lock(&totalW_mut);
-        if (totalW >= N_writings)
-        {
-            pthread_mutex_unlock(&totalW_mut);
-            break;
-        }
-        totalW++;
-        pthread_mutex_unlock(&totalW_mut);
+        int update = update_counter_with_limit(&totalW, &totalW_mut, N_writings);
+        if (update == -1)
+            break; // On a atteint la limite de readings!
 
         pthread_mutex_lock(&mutex_writer); // Protège la variable writercount
         writercount++;
@@ -102,7 +87,6 @@ void *writer()
         if (writercount == 0)     // départ du dernier writer
             sem_post(&db_reader); // libère les lecteurs
         pthread_mutex_unlock(&mutex_writer);
-
     }
     pthread_exit(0);
 }

@@ -35,29 +35,13 @@ int remove_item()
     return item;
 }
 
-int update_counter(int *count)
-/* Pre: Reçoit une pointer vers un counter et l'update de façon sécursiée
-** Post: Renvoit 0 si le counter a bien été update, -1 si la limite a été atteinte */
-{
-    // Check le compteur global et agit en fonction
-    pthread_mutex_lock(&count_mutex);
-    if (*count >= N_elems)
-    { // Dépasse la limite de production ?
-        pthread_mutex_unlock(&count_mutex);
-        return -1; // Return -1 si on a atteint la limite de prod/conso
-    }
-    (*count)++;                         // Add 1 au counter (prod ou conso)
-    pthread_mutex_unlock(&count_mutex); // Débloque le mutex => on évite que plusiers threads touchent au counter
-    return 0;
-}
-
 // Producteur
-//Signature changée pour ne pas avoir de warnings plus tard avec pthread_create
-void* producer(void*)
+// Signature changée pour ne pas avoir de warnings plus tard avec pthread_create
+void *producer(void *)
 {
     while (1)
     {
-        int update = update_counter(&total_produced);
+        int update = update_counter_with_limit(&total_produced, &count_mutex, N_elems);
         if (update == -1)
             break; // On a atteint la limite de production!
 
@@ -79,12 +63,12 @@ void* producer(void*)
 }
 
 // Consommateur
-//Signature changée pour ne pas avoir de warnings plus tard avec pthread_create
-void* consumer(void*)
+// Signature changée pour ne pas avoir de warnings plus tard avec pthread_create
+void *consumer(void *)
 {
     while (1)
     {
-        int update = update_counter(&total_consumed);
+        int update = update_counter_with_limit(&total_consumed, &count_mutex, N_elems);
         if (update == -1)
             break; // On a atteint la limite de consommation!
 
