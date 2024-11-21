@@ -25,7 +25,7 @@ def plot_performance(data, title, output_file, color="blue"):
 
     # Plot the results
     plt.figure(figsize=(10, 6))
-    plt.errorbar(means.index, means, yerr=stds, fmt='-o', color=color, capsize=10, label="Execution Time")
+    plt.errorbar(means.index, means, yerr=stds, fmt='-o', color=color, capsize=7, label="Execution time with standard deviation")
     
     # Graph settings
     plt.title(title)
