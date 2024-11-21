@@ -4,9 +4,15 @@
 PRODUCERS_CONSUMERS_PROGRAM="./producers_consumers"
 READERS_WRITERS_PROGRAM="./readers_writers"
 
+# Output repository for CSV files
+OUTPUT_REPO="./performance_data"
+
+#Have to be sure that the repo exists
+mkdir -p $OUTPUT_REPO
+
 # Output CSV files
-PC_OUTPUT_FILE="performance_producers_consumers.csv"
-RW_OUTPUT_FILE="performance_readers_writers.csv"
+PC_OUTPUT_FILE="$OUTPUT_REPO/performance_producers_consumers.csv"
+RW_OUTPUT_FILE="$OUTPUT_REPO/performance_readers_writers.csv"
 
 # Number of threads
 THREAD_COUNTS=(2 4 8 16 32)

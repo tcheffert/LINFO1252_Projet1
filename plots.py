@@ -2,14 +2,14 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # File paths
-pc_csv = "performance_producers_consumers.csv"
-rw_csv = "performance_readers_writers.csv"
+pc_csv = "performance_data/performance_producers_consumers.csv"
+rw_csv = "performance_data/performance_readers_writers.csv"
 
 # Load data
 pc_data = pd.read_csv(pc_csv)
 rw_data = pd.read_csv(rw_csv)
 
-def plot_performance(data, title, output_file):
+def plot_performance(data, title, output_file, color="blue"):
     """
     Plots the execution time vs. number of threads with mean and std deviation.
     
@@ -25,23 +25,23 @@ def plot_performance(data, title, output_file):
 
     # Plot the results
     plt.figure(figsize=(10, 6))
-    plt.errorbar(means.index, means, yerr=stds, fmt='-o', capsize=10, label="Execution Time")
+    plt.errorbar(means.index, means, yerr=stds, fmt='-o', color=color, capsize=10, label="Execution Time")
     
     # Graph settings
     plt.title(title)
     plt.xlabel("Number of Threads")
-    plt.ylabel("Execution Time (s)")
+    plt.ylabel("Execution Time [s]")
     plt.ylim(0)  # y-axis starts at 0
     plt.xticks(means.index)  # Ensure x-axis matches thread counts
-    plt.grid(True, linestyle='--', alpha=0.7)
+    plt.grid(True, linestyle='--', alpha=0.5)
     plt.legend()
     
     # Show the plot
-    plt.savefig(output_file)
+    plt.savefig('plots/' + output_file)
     plt.show()
 
 # Plot for Producers/Consumers
-plot_performance(pc_data, "Performance: Producers/Consumers Problem", "producers_consumers_performance.png")
+plot_performance(pc_data, "Performance Producers/Consumers depending on the numbers of Threads", "producers_consumers_performance.png", color="slateblue")
 
 # Plot for Readers/Writers
-plot_performance(rw_data, "Performance: Readers/Writers Problem", "readers_writers_performance.png")
+plot_performance(rw_data, "Performance Readers/Writers depending on the numbers of Threads", "readers_writers_performance.png", color="mediumseagreen")

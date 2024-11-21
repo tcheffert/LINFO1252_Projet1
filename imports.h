@@ -25,5 +25,5 @@ int update_counter_with_limit(int *counter, pthread_mutex_t *mutex, int limit)
     }
     (*counter)++; // Add 1 au counter 
     pthread_mutex_unlock(mutex); // Débloque le mutex => on évite que plusiers threads touchent au counter
-    return 0; // Indicates success
+    return 0; // Succès ! Le conteur a bien été changé
 }
