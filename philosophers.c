@@ -8,8 +8,8 @@ sem_t* forks; // Tableau de sémaphores pour les fourchettes
 
 void* philosophe(void* arg) {
     int *id = (int *) arg;
-    int left = *id;
     int right = (*id + 1) % N;
+    int left = *id;
 
     int count = 0;
     while ( count < cycles){
@@ -38,8 +38,10 @@ void problem(int N){
         exit(EXIT_FAILURE);
     }
 
+    //Check initialisation semaphore et threads
     int *id;
     for (int i = 0; i < N; i++){
+
         if(sem_init(&forks[i], 0, 1) == -1){
             perror("sem_init");
             exit(1);
@@ -47,7 +49,7 @@ void problem(int N){
         id = malloc(sizeof(int));
         *id = i;
         if(pthread_create(&philos[i], NULL, philosophe, (void *) id) != 0){
-            perror("pthread_create");
+            perror("Error pthread_create");
             exit(1);
         }
     }
@@ -62,11 +64,11 @@ void problem(int N){
 
     for (int i = 0; i < N; i++){
         if(sem_destroy(&forks[i]) == -1){
-            perror("sem_destroy");
+            perror("Error sem_destroy");
             exit(1);
         }
     }
-    
+
     free(philos);
     free(forks);
     free(id);
