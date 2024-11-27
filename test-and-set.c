@@ -22,10 +22,18 @@ typedef struct {
     int state;
 } lock_t;
 
-
+/**
+ * Initialise le verrou.
+ * Return -1 si problème d'allocation, et 0 sinon (Succès)
+*/
 int init_lock(lock_t **lock){
     *lock = malloc(sizeof(lock_t));
+    if (*lock == NULL) {
+        perror("Problème d'allocation");
+        return -1;
+    }
     (*lock)->state = 0;
+    return 0;
 }
 
 void lock_lock(lock_t **lock){
