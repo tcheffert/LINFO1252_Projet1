@@ -4,8 +4,6 @@
 
 int N;  // Nombre de philospohes (sera donné par argument plus tard)
 // Faire un tableau représentant les fourchettes
-
-
 sem_t* forks; // Tableau de sémaphores pour les fourchettes
 
 void* philosophe(void* arg) {
@@ -26,12 +24,19 @@ void* philosophe(void* arg) {
         unlock(&forks[right]);
         count++;
     }
+    free(arg);  // Libérer la mémoire allouée pour l'identifiant
     return (NULL);   
 }
 
 void problem(int N){
     pthread_t *philos = (pthread_t *) malloc(N * sizeof(pthread_t));
     forks = (sem_t *) malloc(N * sizeof(sem_t));
+
+    //Check malloc
+    if (philos == NULL || forks == NULL) {
+        perror("Erreur d'allocation mémoire");
+        exit(EXIT_FAILURE);
+    }
 
     int *id;
     for (int i = 0; i < N; i++){
@@ -47,6 +52,7 @@ void problem(int N){
         }
     }
 
+    //Threads philosophes
     for (int i = 0; i < N; i++){
         if(pthread_join(philos[i], NULL) != 0){
             perror("pthread_join");
@@ -60,6 +66,7 @@ void problem(int N){
             exit(1);
         }
     }
+    
     free(philos);
     free(forks);
     free(id);
