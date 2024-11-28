@@ -29,3 +29,9 @@ int update_counter_with_limit(int *counter, pthread_mutex_t *mutex, int limit)
     pthread_mutex_unlock(mutex); // Débloque le mutex => on évite que plusiers threads touchent au counter
     return 0; // Succès ! Le conteur a bien été changé
 }
+
+// philosophers.c
+
+#define cycles 1000000  // Nombre de cycles penser/manger pour chaque philospohe
+
+void problem(int);
