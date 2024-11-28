@@ -76,11 +76,14 @@ void problem(int N){
 
 int main(int argc, char const *argv[])
 {
+    /* // uncomment if manual launch
     if (argc != 2){
         printf("Usage: %s <N>\n", argv[0]);
         return -1;
     }
     N = atoi(argv[1]);
+    */
+    N = 10;
     if (N <= 0){
         printf("Erreur : Le nombre de philosophes (%d) doit être positif!\n", N);
         return -1;
