@@ -24,6 +24,7 @@ void* philosophe(void* arg) {
         pthread_mutex_unlock(&forks[right]);
         count++;
     }
+    //printf("Philosophe %d a fini de manger, count : %d \n", *id,count);
     free(arg);  // Libérer la mémoire allouée pour l'identifiant
     return (NULL);   
 }
@@ -76,14 +77,17 @@ void problem(int N){
 
 int main(int argc, char const *argv[])
 {
-    /* // uncomment if manual launch
+    // uncomment if manual launch
+    // valgrind --leak-check=yes ./philosophers 100
+    // ./philosophers 100
+    
     if (argc != 2){
         printf("Usage: %s <N>\n", argv[0]);
         return -1;
     }
     N = atoi(argv[1]);
-    */
-    N = 10;
+    
+    // N = 10;
     if (N <= 0){
         printf("Erreur : Le nombre de philosophes (%d) doit être positif!\n", N);
         return -1;
