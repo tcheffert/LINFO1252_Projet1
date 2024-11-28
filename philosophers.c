@@ -14,14 +14,14 @@ void* philosophe(void* arg) {
     int count = 0;
     while ( count < cycles){
         if (left < right){ // penser
-            lock(&forks[left]);
-            lock(&forks[right]);
+            pthread_mutex_lock(&forks[left]);
+            pthread_mutex_lock(&forks[right]);
         } else {
-            lock(&forks[right]);
-            lock(&forks[left]);
+            pthread_mutex_lock(&forks[right]);
+            pthread_mutex_lock(&forks[left]);
         }
-        unlock(&forks[left]); // manger
-        unlock(&forks[right]);
+        pthread_mutex_unlock(&forks[left]); // manger
+        pthread_mutex_unlock(&forks[right]);
         count++;
     }
     free(arg);  // Libérer la mémoire allouée pour l'identifiant
