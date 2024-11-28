@@ -4,7 +4,7 @@
 
 int N;  // Nombre de philospohes (sera donné par argument plus tard)
 // Faire un tableau représentant les fourchettes
-sem_t* forks; // Tableau de sémaphores pour les fourchettes
+pthread_mutex_t* forks; // Tableau de sémaphores pour les fourchettes
 
 void* philosophe(void* arg) {
     int *id = (int *) arg;
@@ -30,7 +30,7 @@ void* philosophe(void* arg) {
 
 void problem(int N){
     pthread_t *philos = (pthread_t *) malloc(N * sizeof(pthread_t));
-    forks = (sem_t *) malloc(N * sizeof(sem_t));
+    forks = (pthread_mutex_t *) malloc(N * sizeof(pthread_mutex_t));
 
     //Check malloc
     if (philos == NULL || forks == NULL) {
@@ -38,12 +38,12 @@ void problem(int N){
         exit(EXIT_FAILURE);
     }
 
-    //Check initialisation semaphore et threads
+    //Check initialisation mutex et threads
     int *id;
     for (int i = 0; i < N; i++){
 
-        if(sem_init(&forks[i], 0, 1) == -1){
-            perror("sem_init");
+        if(pthread_mutex_init(&forks[i], NULL) != 0){
+            perror("mutex init");
             exit(1);
         }
         id = malloc(sizeof(int));
@@ -63,8 +63,8 @@ void problem(int N){
     }
 
     for (int i = 0; i < N; i++){
-        if(sem_destroy(&forks[i]) == -1){
-            perror("Error sem_destroy");
+        if(pthread_mutex_destroy(&forks[i]) == -1){
+            perror("Error mutex destroy");
             exit(1);
         }
     }
