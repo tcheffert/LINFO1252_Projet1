@@ -91,7 +91,7 @@ int main(int argc, char const *argv[])
 {
     int num_producers, num_consumers;
 
-    // Command-line arguments: ./program <num_producers> <num_consumers>
+    // ./program <num_producers> <num_consumers>
     if (argc != 3)
     {
         printf("Usage: %s <num_producers> <num_consumers>\n", argv[0]);
