@@ -11,7 +11,7 @@ pc_data = pd.read_csv(pc_csv)
 rw_data = pd.read_csv(rw_csv)
 philo_data = pd.read_csv(philo_csv)
 
-def plot_performance(data, title, output_file, color="blue"):
+def plot_performance(data, title, output_file, color="blue", pdf=False):
     """
     Plots the execution time vs. number of threads with mean and std deviation.
     
@@ -39,14 +39,17 @@ def plot_performance(data, title, output_file, color="blue"):
     plt.legend()
     
     # Show the plot
-    plt.savefig('plots/' + output_file)
+    if pdf == True:
+        plt.savefig('plots/' + output_file + ".pdf", format='pdf', bbox_inches="tight")
+    else:
+        plt.savefig('plots/' + output_file + ".png")
     plt.show()
 
 # Plot for Producers/Consumers
-plot_performance(pc_data, "Performance Producers/Consumers depending on the numbers of Threads", "producers_consumers_performance.png", color="slateblue")
+plot_performance(pc_data, "Performance Producers/Consumers depending on the numbers of Threads", "producers_consumers_performance", color="slateblue")
 
 # Plot for Readers/Writers
-plot_performance(rw_data, "Performance Readers/Writers depending on the numbers of Threads", "readers_writers_performance.png", color="mediumseagreen")
+plot_performance(rw_data, "Performance Readers/Writers depending on the numbers of Threads", "readers_writers_performance", color="mediumseagreen")
 
 # Plot for Philosophers
-plot_performance(philo_data, "Performance Philosophers depending on the numbers of Threads", "philosophers_performance.png", color="red")
+plot_performance(philo_data, "Performance Philosophers depending on the numbers of Threads", "philosophers_performance", color="red")
