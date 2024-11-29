@@ -1,0 +1,69 @@
+==4108== 9 errors in context 1 of 9:
+==4108== Thread 13:
+==4108== Conditional jump or move depends on uninitialised value(s)
+==4108==    at 0x4904F4F: pthread_mutex_lock@@GLIBC_2.2.5 (pthread_mutex_lock.c:94)
+==4108==    by 0x1094B9: philosophe (in /home/arnaud/Downloads/SystInfo/LINFO1252_Projet1/philosophers)
+==4108==    by 0x4901AC2: start_thread (pthread_create.c:442)
+==4108==    by 0x4992A03: clone (clone.S:100)
+==4108== 
+==4108== 
+==4108== 9 errors in context 2 of 9:
+==4108== Conditional jump or move depends on uninitialised value(s)
+==4108==    at 0x4904F44: lll_mutex_lock_optimized (pthread_mutex_lock.c:48)
+==4108==    by 0x4904F44: pthread_mutex_lock@@GLIBC_2.2.5 (pthread_mutex_lock.c:93)
+==4108==    by 0x1094B9: philosophe (in /home/arnaud/Downloads/SystInfo/LINFO1252_Projet1/philosophers)
+==4108==    by 0x4901AC2: start_thread (pthread_create.c:442)
+==4108==    by 0x4992A03: clone (clone.S:100)
+==4108== 
+==4108== 
+==4108== 1666660 errors in context 3 of 9:
+==4108== Conditional jump or move depends on uninitialised value(s)
+==4108==    at 0x4906AA0: lll_mutex_unlock_optimized (pthread_mutex_unlock.c:40)
+==4108==    by 0x4906AA0: __pthread_mutex_unlock_usercnt (pthread_mutex_unlock.c:68)
+==4108==    by 0x4906AA0: pthread_mutex_unlock@@GLIBC_2.2.5 (pthread_mutex_unlock.c:368)
+==4108==    by 0x109553: philosophe (in /home/arnaud/Downloads/SystInfo/LINFO1252_Projet1/philosophers)
+==4108==    by 0x4901AC2: start_thread (pthread_create.c:442)
+==4108==    by 0x4992A03: clone (clone.S:100)
+==4108== 
+==4108== 
+==4108== 1666660 errors in context 4 of 9:
+==4108== Conditional jump or move depends on uninitialised value(s)
+==4108==    at 0x4906A8A: __pthread_mutex_unlock_usercnt (pthread_mutex_unlock.c:57)
+==4108==    by 0x4906A8A: pthread_mutex_unlock@@GLIBC_2.2.5 (pthread_mutex_unlock.c:368)
+==4108==    by 0x109553: philosophe (in /home/arnaud/Downloads/SystInfo/LINFO1252_Projet1/philosophers)
+==4108==    by 0x4901AC2: start_thread (pthread_create.c:442)
+==4108==    by 0x4992A03: clone (clone.S:100)
+==4108== 
+==4108== 
+==4108== 1666661 errors in context 5 of 9:
+==4108== Conditional jump or move depends on uninitialised value(s)
+==4108==    at 0x4906A82: __pthread_mutex_unlock_usercnt (pthread_mutex_unlock.c:52)
+==4108==    by 0x4906A82: pthread_mutex_unlock@@GLIBC_2.2.5 (pthread_mutex_unlock.c:368)
+==4108==    by 0x109553: philosophe (in /home/arnaud/Downloads/SystInfo/LINFO1252_Projet1/philosophers)
+==4108==    by 0x4901AC2: start_thread (pthread_create.c:442)
+==4108==    by 0x4992A03: clone (clone.S:100)
+==4108== 
+==4108== 
+==4108== 1666667 errors in context 6 of 9:
+==4108== Conditional jump or move depends on uninitialised value(s)
+==4108==    at 0x4904F2B: lll_mutex_lock_optimized (pthread_mutex_lock.c:45)
+==4108==    by 0x4904F2B: pthread_mutex_lock@@GLIBC_2.2.5 (pthread_mutex_lock.c:93)
+==4108==    by 0x1094B9: philosophe (in /home/arnaud/Downloads/SystInfo/LINFO1252_Projet1/philosophers)
+==4108==    by 0x4901AC2: start_thread (pthread_create.c:442)
+==4108==    by 0x4992A03: clone (clone.S:100)
+==4108== 
+==4108== 
+==4108== 1666667 errors in context 7 of 9:
+==4108== Conditional jump or move depends on uninitialised value(s)
+==4108==    at 0x4904F10: pthread_mutex_lock@@GLIBC_2.2.5 (pthread_mutex_lock.c:88)
+==4108==    by 0x1094B9: philosophe (in /home/arnaud/Downloads/SystInfo/LINFO1252_Projet1/philosophers)
+==4108==    by 0x4901AC2: start_thread (pthread_create.c:442)
+==4108==    by 0x4992A03: clone (clone.S:100)
+==4108== 
+==4108== 
+==4108== 1666667 errors in context 8 of 9:
+==4108== Conditional jump or move depends on uninitialised value(s)
+==4108==    at 0x4904F03: pthread_mutex_lock@@GLIBC_2.2.5 (pthread_mutex_lock.c:84)
+==4108==    by 0x1094B9: philosophe (in /home/arnaud/Downloads/SystInfo/LINFO1252_Projet1/philosophers)
+==4108==    by 0x4901AC2: start_thread (pthread_create.c:442)
+==4108==    by 0x4992A03: clone (clone.S:100)
