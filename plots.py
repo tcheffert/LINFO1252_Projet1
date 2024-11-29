@@ -4,10 +4,12 @@ import matplotlib.pyplot as plt
 # File paths
 pc_csv = "performance_data/performance_producers_consumers.csv"
 rw_csv = "performance_data/performance_readers_writers.csv"
+philo_csv = "performance_data/performance_philosophers.csv"
 
 # Load data
 pc_data = pd.read_csv(pc_csv)
 rw_data = pd.read_csv(rw_csv)
+philo_data = pd.read_csv(philo_csv)
 
 def plot_performance(data, title, output_file, color="blue"):
     """
@@ -45,3 +47,6 @@ plot_performance(pc_data, "Performance Producers/Consumers depending on the numb
 
 # Plot for Readers/Writers
 plot_performance(rw_data, "Performance Readers/Writers depending on the numbers of Threads", "readers_writers_performance.png", color="mediumseagreen")
+
+# Plot for Philosophers
+plot_performance(philo_data, "Performance Philosophers depending on the numbers of Threads", "philosophers_performance.png", color="red")
