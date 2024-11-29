@@ -1,3 +1,4 @@
+// TATAS.h
 // • Tirons partie du mécanisme de cache :
 // • Tant que la variable lock est à 1, le thread TA qui exécute
 // sa section critique n’a pas terminé
