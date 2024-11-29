@@ -4,7 +4,8 @@ int N; // Nb threads
 
 void* test(void* arg)
 {
-    int *lock = (int*)arg;
+    //int *lock = (int*)arg;
+    lock_t *lock = (lock_t*)arg;
     for (int i = 0; i < 32768/N ; i++)
     {
         lock_lock(&lock);
@@ -17,8 +18,15 @@ void* test(void* arg)
 
 void test_init(int N){
     pthread_t *threads = (pthread_t*)malloc(N * sizeof(pthread_t));
-    int *locks = (int*)malloc(N * sizeof(int));
+    //int *locks = (int*)malloc(N * sizeof(int));
+    lock_t *locks = (lock_t*)malloc(N * sizeof(lock_t));
 
+    if (threads == NULL || locks == NULL)
+    {
+        perror("Error malloc");
+        exit(1);
+    }
+    
     for (int i = 0; i < N; i++)
     {
         if (init_lock(&locks[i]) != 0)

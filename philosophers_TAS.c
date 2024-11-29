@@ -93,7 +93,6 @@ void problem(int N)
 
 int main(int argc, char const *argv[])
 {
-    // uncomment if manual launch
     // valgrind --leak-check=yes ./philosophers_TAS 100
     // ./philosophers_TAS 100
 

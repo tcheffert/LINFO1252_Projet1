@@ -16,7 +16,8 @@ l’opération est atomique
 • L’exclusion mutuelle est donc assurée
 • Cet algorithme est aussi appelé test-and-set
 */
-
+#ifndef TAS_H
+#define TAS_H
 #include "headers/imports.h"
 
 typedef struct {
@@ -62,3 +63,5 @@ void unlock_lock(lock_t **lock){
 void free_lock(lock_t **lock){
     free(*lock);
 }
+
+#endif

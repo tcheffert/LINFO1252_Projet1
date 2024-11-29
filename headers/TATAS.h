@@ -15,7 +15,8 @@
 //  // donc on attend de lire 0 pour tenter à nouveau
 //  while (verrou) {}
 // }
-
+#ifndef TATAS_H
+#define TATAS_H
 #include "headers/imports.h"
 
 typedef struct {
@@ -64,3 +65,5 @@ void unlock_lock(lock_t **lock){
 void free_lock(lock_t **lock){
     free(*lock);
 }
+
+#endif

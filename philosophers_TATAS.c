@@ -91,7 +91,7 @@ void problem(int N)
     free(forks);
 }
 
-int main(int argc, char const *argv[])
+int main(int argc, char const *argv[]){
     // valgrind --leak-check=yes ./philosophers_TATAS 100
     // ./philosophers_TATAS 100
 
