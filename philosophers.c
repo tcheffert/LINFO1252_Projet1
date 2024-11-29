@@ -64,6 +64,7 @@ void problem(int N)
         }
 
         *id = i;
+        // L'id sera libéré par le thread dans philosophe() (ligne 33)
         if (pthread_create(&philos[i], NULL, philosophe, id) != 0)
         {
             perror("Error pthread_create");
