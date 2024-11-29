@@ -16,7 +16,7 @@ l’opération est atomique
 • Cet algorithme est aussi appelé test-and-set
 */
 
-#include "imports.h"
+#include "headers/imports.h"
 
 typedef struct {
     int state;

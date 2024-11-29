@@ -1,4 +1,4 @@
-#include "imports.h"
+#include "headers/imports.h"
 
 #define cycles 1000000 // Nombre de cycles penser/manger pour chaque philospohe
 
