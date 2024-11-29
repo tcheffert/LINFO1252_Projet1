@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <stdatomic.h>
 
 
 // Fonction simulant un traitement
