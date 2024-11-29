@@ -40,19 +40,19 @@ void problem(int N){
     }
 
     //Check initialisation mutex et threads
-    int *id;
     for (int i = 0; i < N; i++){
 
         if(pthread_mutex_init(&forks[i], NULL) != 0){
             perror("mutex init");
             exit(1);
         }
-        id = malloc(sizeof(int));
+        int *id = malloc(sizeof(int));
         *id = i;
         if(pthread_create(&philos[i], NULL, philosophe, (void *) id) != 0){
             perror("Error pthread_create");
             exit(1);
         }
+        free(id);
     }
 
     //Threads philosophes
@@ -72,7 +72,6 @@ void problem(int N){
 
     free(philos);
     free(forks);
-    free(id);
 }
 
 int main(int argc, char const *argv[])
