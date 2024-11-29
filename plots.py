@@ -45,11 +45,13 @@ def plot_performance(data, title, output_file, color="blue", pdf=False):
         plt.savefig('plots/' + output_file + ".png")
     plt.show()
 
+intoPdf = False
+
 # Plot for Producers/Consumers
-plot_performance(pc_data, "Performance Producers/Consumers depending on the numbers of Threads", "producers_consumers_performance", color="slateblue")
+plot_performance(pc_data, "Performance Producers/Consumers depending on the numbers of Threads", "producers_consumers_performance", color="slateblue", pdf=intoPdf)
 
 # Plot for Readers/Writers
-plot_performance(rw_data, "Performance Readers/Writers depending on the numbers of Threads", "readers_writers_performance", color="mediumseagreen")
+plot_performance(rw_data, "Performance Readers/Writers depending on the numbers of Threads", "readers_writers_performance", color="mediumseagreen", pdf=intoPdf)
 
 # Plot for Philosophers
-plot_performance(philo_data, "Performance Philosophers depending on the numbers of Threads", "philosophers_performance", color="red")
+plot_performance(philo_data, "Performance Philosophers depending on the numbers of Threads", "philosophers_performance", color="crimson", pdf=intoPdf)
