@@ -12,12 +12,12 @@ void process()
 void* test(void* arg)
 {
     //int *lock = (int*)arg;
-    lock_t *lock = (lock_t*)arg;
+    int *lock = (int*)arg;
     for (int i = 0; i < 32768/N ; i++)
     {
-        lock_lock(&lock);
+        lock_lock(lock);
         process(); // simulate a process
-        unlock_lock(&lock);
+        unlock_lock(lock);
     }
 
     return NULL;
@@ -25,8 +25,8 @@ void* test(void* arg)
 
 void test_init(int N){
     pthread_t *threads = (pthread_t*)malloc(N * sizeof(pthread_t));
-    //int *locks = (int*)malloc(N * sizeof(int));
-    lock_t *locks = (lock_t*)malloc(N * sizeof(lock_t));
+
+    locks = init_lock(1);
 
     if (threads == NULL || locks == NULL)
     {
@@ -36,18 +36,9 @@ void test_init(int N){
     
     for (int i = 0; i < N; i++)
     {
-        if (init_lock(&locks[i]) != 0)
+        if (pthread_create(&threads[i], NULL, test, &locks[0]) != 0)
         {
-            perror("Error lock init");
-            exit(1);
-        }
-    }
-
-    for (int i = 0; i < N; i++)
-    {
-        if (pthread_create(&threads[i], NULL, test, &locks[i]) != 0)
-        {
-            perror("Error thread creation");
+            perror("Error thread creation, number ");
             exit(1);
         }
     }
@@ -61,17 +52,13 @@ void test_init(int N){
         }
     }
 
-    for (int i = 0; i < N; i++)
-    {
-        free_lock(&locks[i]);
-    }
-
     free(threads);
     free(locks);
 }
 
 int main(int argc, char const *argv[])
 {
+    // valgrind --leak-check=full --show-leak-kinds=all ./tests/test-and-set 4
     if (argc != 2)
     {
         printf("Usage: %s <N>\n", argv[0]);
