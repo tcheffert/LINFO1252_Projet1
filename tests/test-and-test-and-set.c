@@ -2,6 +2,13 @@
 
 int N; // Nb threads
 
+// Fonction simulant un traitement
+void process()
+{
+    for (int i = 0; i < 10000; i++)
+        ;
+}
+
 void* test(void* arg)
 {
     //int *lock = (int*)arg;

@@ -15,9 +15,14 @@
 //  // donc on attend de lire 0 pour tenter à nouveau
 //  while (verrou) {}
 // }
+#include <pthread.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <stdatomic.h>
+
 #ifndef TATAS_H
 #define TATAS_H
-#include "headers/imports.h"
 
 typedef struct {
     int state;
