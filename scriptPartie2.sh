@@ -2,7 +2,7 @@
 
 # Paths to programs compiled
 PRODUCERS_CONSUMERS_PROGRAM="./prod_conso_sem"
-#READERS_WRITERS_PROGRAM="./readers_writers"
+READERS_WRITERS_PROGRAM="./readers_writers_sem"
 
 # Output repository for CSV files
 OUTPUT_REPO="./performance_data"
@@ -12,7 +12,7 @@ mkdir -p $OUTPUT_REPO
 
 # Output CSV files
 PC_OUTPUT_FILE="$OUTPUT_REPO/performance_prod_conso_sem.csv"
-#RW_OUTPUT_FILE="$OUTPUT_REPO/performance_readers_writers.csv"
+RW_OUTPUT_FILE="$OUTPUT_REPO/performance_readers_writers_sem.csv"
 
 # Number of threads
 THREAD_COUNTS=(2 4 8 16 32)
@@ -22,7 +22,7 @@ N=5
 
 # Prepare the CSV files
 echo "Threads,Run,Time (s)" > $PC_OUTPUT_FILE
-#echo "Threads,Run,Time (s)" > $RW_OUTPUT_FILE
+echo "Threads,Run,Time (s)" > $RW_OUTPUT_FILE
 
 # Function to measure performance for a given program
 measure_performance() {
@@ -58,10 +58,10 @@ echo "Starting performance evaluation..."
 
 # Measure performance for producers/consumers
 echo "Evaluating Producers/Consumers..."
-measure_performance $PRODUCERS_CONSUMERS_PROGRAM $PC_OUTPUT_FILE THREAD_COUNTS[@]
+#measure_performance $PRODUCERS_CONSUMERS_PROGRAM $PC_OUTPUT_FILE THREAD_COUNTS[@]
 
 # Measure performance for readers/writers
 echo "Evaluating Readers/Writers..."
-#measure_performance $READERS_WRITERS_PROGRAM $RW_OUTPUT_FILE THREAD_COUNTS[@]
+measure_performance $READERS_WRITERS_PROGRAM $RW_OUTPUT_FILE THREAD_COUNTS[@]
 
 echo "Performance evaluation complete."
