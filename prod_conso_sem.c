@@ -1,5 +1,6 @@
 #include "headers/semaphore_interface.h"
 #include "headers/imports.h"
+#include "headers/TAS.h"
 // Initialisation
 #define N 8            // places dans le buffer
 #define N_elems 131072 // nombre d’éléments produits (et donc consommé)
@@ -8,7 +9,7 @@ int total_produced = 0;
 int total_consumed = 0;
 pthread_mutex_t count_mutex; // Pour protéger les counts (éviter que plusieurs threads modif les counts)
 
-pthread_mutex_t mutex;
+int *mutex;
 semaphore_t empty;
 semaphore_t full;
 
@@ -51,13 +52,13 @@ void *producer(void *)
 
         // item = produce(item);
         semaphore_wait(&empty);           // attente d’une place libre
-        pthread_mutex_lock(&mutex); // Mutual exclusion
+        lock_lock(mutex); // Mutual exclusion
 
         // Section critique
 
         insert_item(total_produced); // On utilise total_prod pour savoir lequel on place dans le buffer
 
-        pthread_mutex_unlock(&mutex);
+        unlock_lock(mutex);
         semaphore_signal(&full); // il y a une place remplie en plus
     }
     pthread_exit(0);
@@ -74,12 +75,12 @@ void *consumer(void *)
             break; // On a atteint la limite de consommation!
 
         semaphore_wait(&full); // attente d’une place remplie
-        pthread_mutex_lock(&mutex);
+        lock_lock(mutex);
 
         // Section critique
 
         int item = remove_item();
-        pthread_mutex_unlock(&mutex);
+        unlock_lock(mutex);
         semaphore_signal(&empty); // il y a une place libre en plus
 
         // Consomme en dehors de la zone critique
@@ -112,7 +113,7 @@ int main(int argc, char const *argv[])
     semaphore_init(&empty, N); // N places libres au début
     semaphore_init(&full, 0);  // 0 places full au début
     // Initialise les mutexes
-    pthread_mutex_init(&mutex, NULL);       // Initialise mutex pour la section critique dans producer/consumer
+    mutex = init_lock(1);      // Initialise mutex pour la section critique dans producer/consumer
     pthread_mutex_init(&count_mutex, NULL); // Initialise le mutex qui protège les counters
 
     // Créé les threads producteurs et consommateurs
@@ -140,7 +141,7 @@ int main(int argc, char const *argv[])
     }
 
     // Clean les mutexes et semaphores
-    pthread_mutex_destroy(&mutex);
+    free(mutex);
     pthread_mutex_destroy(&count_mutex);
     semaphore_destroy(&empty);
     semaphore_destroy(&full);
