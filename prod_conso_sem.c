@@ -79,7 +79,7 @@ void *consumer(void *)
 
         // Section critique
 
-        int item = remove_item();
+        remove_item();
         unlock_lock(mutex);
         semaphore_signal(&empty); // il y a une place libre en plus
 

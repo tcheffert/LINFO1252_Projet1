@@ -77,7 +77,7 @@ void *consumer(void *)
 
         // Section critique
 
-        int item = remove_item();
+        remove_item();
         pthread_mutex_unlock(&mutex);
         sem_post(&empty); // il y a une place libre en plus
 
