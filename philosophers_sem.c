@@ -1,9 +1,10 @@
-#include "headers/TATAS.h"
+#include "headers/imports.h"
+#include "headers/semaphore_interface.h"
+#include "headers/TAS.h"
 
 #define cycles 1000000 // Nombre de cycles penser/manger pour chaque philospohe
 
 int N;                  // Nombre de philospohes (sera donné par argument plus tard)
-lock_t *forks; // Tableau de sémaphores représentant les fourchettes
 
 void *philosophe(void *arg)
 {
@@ -16,17 +17,17 @@ void *philosophe(void *arg)
     {
         if (left < right)
         { // penser
-            lock_lock(&forks[left]);
-            lock_lock(&forks[right]);
+            lock_lock(&locks[left]);
+            lock_lock(&locks[right]);
         }
         else
         {
-            lock_lock(&forks[right]);
-            lock_lock(&forks[left]);
+            lock_lock(&locks[right]);
+            lock_lock(&locks[left]);
         }
         // Graille
-        unlock_lock(&forks[left]);
-        unlock_lock(&forks[right]);
+        unlock_lock(&locks[left]);
+        unlock_lock(&locks[right]);
         count++;
     }
     // printf("Philosophe %d a fini de manger, count : %d \n", *id,count);
@@ -37,24 +38,18 @@ void *philosophe(void *arg)
 void problem(int N)
 {
     pthread_t *philos = (pthread_t *)malloc(N * sizeof(pthread_t));
-    forks = (lock_t *)malloc(N * sizeof(lock_t));
+    locks = init_lock(N);
 
     // Check malloc
-    if (philos == NULL || forks == NULL)
+    if (philos == NULL || locks == NULL)
     {
         perror("Erreur d'allocation mémoire");
         exit(EXIT_FAILURE);
     }
 
-    // Check initialisation mutex et threads
+    // Check initialisation threads
     for (int i = 0; i < N; i++)
     {
-
-        if (init_lock(&forks[i]) != 0)
-        {
-            perror("Error lock init");
-            exit(1);
-        }
 
         int *id = malloc(sizeof(int));
         if (id == NULL)
@@ -70,6 +65,7 @@ void problem(int N)
             perror("Error pthread_create");
             exit(1);
         }
+        // free(id);
     }
 
     // Threads philosophes
@@ -82,18 +78,14 @@ void problem(int N)
         }
     }
 
-    for (int i = 0; i < N; i++)
-    {
-        free_lock(&forks[i]);
-    }
-
     free(philos);
-    free(forks);
+    free(locks);
 }
 
-int main(int argc, char const *argv[]){
-    // valgrind --leak-check=yes ./philosophers_TATAS 100
-    // ./philosophers_TATAS 100
+int main(int argc, char const *argv[])
+{
+    // uncomment if manual launch
+    // valgrind --leak-check=full --show-leak-kinds=all ./philosophers_sem 100
 
     if (argc != 2)
     {
