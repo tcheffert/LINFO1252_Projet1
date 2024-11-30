@@ -24,51 +24,52 @@
 #ifndef TATAS_H
 #define TATAS_H
 
-typedef struct {
-    int state;
-} lock_t;
+int *locks;
 
 /**
  * Initialise le verrou.
- * Return -1 si problème d'allocation, et 0 sinon (Succès)
+ * Return NULL si problème d'allocation, et 0 sinon (Succès)
 */
-int init_lock(lock_t **lock){
-    *lock = (lock_t *) malloc(sizeof(lock_t));
-    if (*lock == NULL) {
-        perror("Problème d'allocation");
-        return -1;
+int *init_lock(int n){
+    int* lock = (int *) calloc(n, sizeof(int));
+    if(lock == NULL){
+        return NULL;
     }
-    (*lock)->state = 0;
-    return 0;
+    return lock;
 }
 
-void lock_lock(lock_t **lock){
-    int count = 1;
-    while(count == 1){
-        while ((*lock)->state == 1){
-            // On attend que le lock soit libre
-        };
-        __asm__ __volatile__(
-            "movl $1, %%ebx\n"
-            "xchgl %%ebx, %0\n"
-        :"=m" ((*lock)->state),"=b" (count)
-        :"m" ((*lock)->state)
+void lock_lock(int *lock){
+    while(*lock){
+        asm("Boucle: \n\t"
+        
         );
     }
+
+    asm volatile(
+        "1: \n\t"
+        "movl $1, %%eax \n\t"
+        "xchgl %%eax, %0 \n\t"
+        "testl %%eax, %%eax \n\t"
+        "jnz 1b \n\t"
+    : "+m" (*lock)
+    : 
+    : "%eax" , "memory"
+    );
+
 }
 
-void unlock_lock(lock_t **lock){
-    int *stat = &(*lock)->state;
-    __asm__ __volatile__(
-        "movl $0, %%ebx\n"
-        "xchgl %%ebx, %0\n"
-    :"=m" ((*lock)->state),"=b" (*stat)
-    :"m" ((*lock)->state)
+void unlock_lock(int *lock){
+    asm volatile(
+        "movl $0, %%eax \n\t"
+        "xchgl %%eax, %0 \n\t"
+    : "+m" (*lock)
+    :
+    : "%eax" , "memory"
     );
 }
 
-void free_lock(lock_t **lock){
-    free(*lock);
+void free_lock(){
+    free(locks);
 }
 
 #endif
