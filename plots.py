@@ -45,14 +45,14 @@ def plot_performance(data, title, output_file, color="blue", pdf=False):
     # Show the plot
     if pdf == True:
         plt.savefig('plots/' + output_file + ".pdf", format='pdf', bbox_inches="tight")
-    else:
-        plt.savefig('plots/' + output_file + ".png")
+    
+    plt.savefig('plots/' + output_file + ".png")
     plt.show()
 
-intoPdf = False
+intoPdf = True
 
 # Plot for Producers/Consumers with new semaphore interface
-#plot_performance(pc_data, "Performance Producers/Consumers depending on the numbers of Threads", "producers_consumers_performance", color="slateblue", pdf=intoPdf)
+plot_performance(pc_data, "Performance Producers/Consumers depending on the numbers of Threads", "producers_consumers_performance", color="cornflowerblue", pdf=intoPdf)
 
 # Plot for Producers/Consumers with new semaphore interface
 #plot_performance(pc_sem_data, "Performance Producers/Consumers with our semaphore interface depending on the numbers of Threads", "prod_conso_sem_performance", color="slateblue", pdf=intoPdf)
@@ -62,7 +62,7 @@ intoPdf = False
 #plot_performance(rw_data, "Performance Readers/Writers depending on the numbers of Threads", "readers_writers_performance", color="mediumseagreen", pdf=intoPdf)
 
 # Plot for Readers/Writers with new semaphore interface
-plot_performance(rw_sem_data, "Performance Readers/Writers with our semaphore interface depending on the numbers of Threads", "readers_writers_sem_performance", color="mediumseagreen", pdf=intoPdf)
+plot_performance(rw_sem_data, "Performance Readers/Writers with our semaphore interface depending on the numbers of Threads", "readers_writers_sem_performance", color="mediumaquamarine", pdf=intoPdf)
 
 
 # Plot for Philosophers
