@@ -1,4 +1,4 @@
-#include "headers/TATAS.h"
+#include "../headers/TATAS.h"
 
 int N; // Nb threads
 

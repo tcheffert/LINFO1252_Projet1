@@ -1,6 +1,13 @@
-#include "headers/TAS.h"
+#include "../headers/TAS.h"
 
 int N; // Nb threads
+
+// Fonction simulant un traitement
+void process()
+{
+    for (int i = 0; i < 10000; i++)
+        ;
+}
 
 void* test(void* arg)
 {

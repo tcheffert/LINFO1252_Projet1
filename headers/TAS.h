@@ -16,9 +16,14 @@ l’opération est atomique
 • L’exclusion mutuelle est donc assurée
 • Cet algorithme est aussi appelé test-and-set
 */
+#include <pthread.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <stdatomic.h>
+
 #ifndef TAS_H
 #define TAS_H
-#include "headers/imports.h"
 
 typedef struct {
     int state;
