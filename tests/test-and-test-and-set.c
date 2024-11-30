@@ -58,7 +58,7 @@ void test_init(int N){
 
 int main(int argc, char const *argv[])
 {
-    // valgrind --leak-check=full --show-leak-kinds=all ./tests/test-and-set 4
+    // valgrind --leak-check=full --show-leak-kinds=all ./tests/test-and-test-and-set 4
     if (argc != 2)
     {
         printf("Usage: %s <N>\n", argv[0]);
