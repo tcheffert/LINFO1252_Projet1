@@ -3,7 +3,7 @@
 #define cycles 1000000 // Nombre de cycles penser/manger pour chaque philospohe
 
 int N;                  // Nombre de philospohes (sera donné par argument plus tard)
-lock_t *forks; // Tableau de sémaphores représentant les fourchettes
+lock_t **forks; // Tableau de sémaphores représentant les fourchettes
 
 void *philosophe(void *arg)
 {
@@ -37,7 +37,7 @@ void *philosophe(void *arg)
 void problem(int N)
 {
     pthread_t *philos = (pthread_t *)malloc(N * sizeof(pthread_t));
-    forks = (lock_t *)malloc(N * sizeof(lock_t));
+    forks = (lock_t **)malloc(N * sizeof(lock_t *));
 
     // Check malloc
     if (philos == NULL || forks == NULL)
