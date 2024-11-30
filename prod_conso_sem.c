@@ -7,7 +7,7 @@
 
 int total_produced = 0;
 int total_consumed = 0;
-pthread_mutex_t count_mutex; // Pour protéger les counts (éviter que plusieurs threads modif les counts)
+int *count_mutex; // Pour protéger les counts (éviter que plusieurs threads modif les counts)
 
 int *mutex;
 semaphore_t empty;
@@ -43,7 +43,7 @@ void *producer(void *)
 {
     while (1)
     {
-        int update = update_counter_with_limit(&total_produced, &count_mutex, N_elems);
+        int update = update_counter_with_limit_no_mutex(&total_produced, count_mutex, N_elems);
         if (update == -1)
             break; // On a atteint la limite de production!
 
@@ -70,7 +70,7 @@ void *consumer(void *)
 {
     while (1)
     {
-        int update = update_counter_with_limit(&total_consumed, &count_mutex, N_elems);
+        int update = update_counter_with_limit_no_mutex(&total_consumed, count_mutex, N_elems);
         if (update == -1)
             break; // On a atteint la limite de consommation!
 
@@ -114,7 +114,7 @@ int main(int argc, char const *argv[])
     semaphore_init(&full, 0);  // 0 places full au début
     // Initialise les mutexes
     mutex = init_lock(1);      // Initialise mutex pour la section critique dans producer/consumer
-    pthread_mutex_init(&count_mutex, NULL); // Initialise le mutex qui protège les counters
+    count_mutex = init_lock(1); // Initialise le mutex qui protège les counters
 
     // Créé les threads producteurs et consommateurs
     pthread_t producers[num_producers], consumers[num_consumers];
@@ -142,7 +142,7 @@ int main(int argc, char const *argv[])
 
     // Clean les mutexes et semaphores
     free(mutex);
-    pthread_mutex_destroy(&count_mutex);
+    free(count_mutex);
     semaphore_destroy(&empty);
     semaphore_destroy(&full);
 
