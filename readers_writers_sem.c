@@ -1,17 +1,18 @@
 #include "headers/semaphore_interface.h"
 #include "headers/imports.h"
+#include "headers/TAS.h"
 
 // Nombre de fois où les lecteurs et écrivains s'effecturont
 #define N_readings 2540
 #define N_writings 640
 
 // Initialisation des mutex et des semaphores
-pthread_mutex_t mutex_reader;
-pthread_mutex_t mutex_writer;
-pthread_mutex_t z;
+int *mutex_reader;
+int *mutex_writer;
+int *z;
 
-pthread_mutex_t totalR_mut;
-pthread_mutex_t totalW_mut;
+int *totalR_mut;
+int *totalW_mut;
 
 semaphore_t db_reader;
 semaphore_t db_writer;
@@ -27,33 +28,33 @@ void *reader()
     // Le(s) lecteur(s) effectue(nt) 2540 lectures
     while (1)
     {
-        int update = update_counter_with_limit(&totalR, &totalR_mut, N_readings);
+        int update = update_counter_with_limit_no_mutex(&totalR, totalR_mut, N_readings);
         if (update == -1)
             break; // On a atteint la limite de readings!
 
-        pthread_mutex_lock(&z); // Priorité absolue aux writers
+        lock_lock(z); // Priorité absolue aux writers
 
         semaphore_wait(&db_reader); // Sémaphore permettant aux écrivains de bloquer les lecteurs
 
-        pthread_mutex_lock(&mutex_reader); // Protège la variable readcount
+        lock_lock(mutex_reader); // Protège la variable readcount
         readcount++;
 
         if (readcount == 1)
             semaphore_wait(&db_writer); // Premier reader réserve la database pour être sûr qu'aucun writer ne l'utilise
 
-        pthread_mutex_unlock(&mutex_reader);
+        unlock_lock(mutex_reader);
         semaphore_signal(&db_reader);
-        pthread_mutex_unlock(&z);
+        unlock_lock(z);
 
         //===== Section critique : lecture simulée =====//
         process(); // On peut process car les writers sont bloqués par le sémaphore db_writer
 
-        pthread_mutex_lock(&mutex_reader);
+        lock_lock(mutex_reader);
         readcount--;
         if (readcount == 0)
             semaphore_signal(&db_writer); // Last reader libère la database écrivain
 
-        pthread_mutex_unlock(&mutex_reader);
+        unlock_lock(mutex_reader);
     }
     pthread_exit(0);
 }
@@ -64,15 +65,15 @@ void *writer()
     // Le(s) écrivain(s) effectue(nt) 640 écritures
     while (1)
     {
-        int update = update_counter_with_limit(&totalW, &totalW_mut, N_writings);
+        int update = update_counter_with_limit_no_mutex(&totalW, totalW_mut, N_writings);
         if (update == -1)
             break; // On a atteint la limite de readings!
 
-        pthread_mutex_lock(&mutex_writer); // Protège la variable writercount
+        lock_lock(mutex_writer); // Protège la variable writercount
         writercount++;
         if (writercount == 1)     // Arrivée du premier writer
             semaphore_wait(&db_reader); // Bloque les lecteurs
-        pthread_mutex_unlock(&mutex_writer);
+        unlock_lock(mutex_writer);
 
         semaphore_wait(&db_writer); // Bloque les autres writers et vérifie que la database n'est pas en train d'être lue
 
@@ -83,11 +84,11 @@ void *writer()
 
         semaphore_signal(&db_writer); // libère les autres writers
 
-        pthread_mutex_lock(&mutex_writer);
+        lock_lock(mutex_writer);
         writercount--;
         if (writercount == 0)     // départ du dernier writer
             semaphore_signal(&db_reader); // libère les lecteurs
-        pthread_mutex_unlock(&mutex_writer);
+        unlock_lock(mutex_writer);
     }
     pthread_exit(0);
 }
@@ -110,9 +111,12 @@ int main(int argc, char const *argv[])
         return -1;
     }
 
-    pthread_mutex_init(&mutex_reader, NULL);
-    pthread_mutex_init(&mutex_writer, NULL);
-    pthread_mutex_init(&z, NULL);
+    mutex_reader = init_lock(1);
+    mutex_writer = init_lock(1);
+    z = init_lock(1);
+    totalR_mut = init_lock(1);
+    totalW_mut = init_lock(1);
+
     semaphore_init(&db_reader, 1);
     semaphore_init(&db_writer, 1);
 
@@ -137,9 +141,11 @@ int main(int argc, char const *argv[])
         pthread_join(writers[i], NULL);
     }
 
-    pthread_mutex_destroy(&mutex_reader);
-    pthread_mutex_destroy(&mutex_writer);
-    pthread_mutex_destroy(&z);
+    free(mutex_reader);
+    free(mutex_writer);
+    free(z);
+    free(totalR_mut);
+    free(totalW_mut);
     semaphore_destroy(&db_reader);
     semaphore_destroy(&db_writer);
 
