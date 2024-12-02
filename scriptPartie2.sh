@@ -58,7 +58,7 @@ echo "Starting performance evaluation..."
 
 # Measure performance for producers/consumers
 echo "Evaluating Producers/Consumers..."
-#measure_performance $PRODUCERS_CONSUMERS_PROGRAM $PC_OUTPUT_FILE THREAD_COUNTS[@]
+measure_performance $PRODUCERS_CONSUMERS_PROGRAM $PC_OUTPUT_FILE THREAD_COUNTS[@]
 
 # Measure performance for readers/writers
 echo "Evaluating Readers/Writers..."

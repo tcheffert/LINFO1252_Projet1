@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Nom du fichier exécutable
-EXECUTABLE="./philosophers"
+EXECUTABLE="./philosophers_sem"
 
 # Fichier de sortie CSV
-OUTPUT_FILE="./performance_data/performance_philosophers.csv"
+OUTPUT_FILE="./performance_data/performance_philo_sem.csv"
 
 # Nombres de threads à tester
 THREADS=(2 4 8 16 32)
