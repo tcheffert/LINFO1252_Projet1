@@ -10,6 +10,8 @@ THREAD_COUNTS=(2 4 8 16 32)
 # Number of runs per configuration
 N=5
 
+make all
+
 # Function to measure performance for a given program
 measure_performance() {
     local program=$1
@@ -51,3 +53,5 @@ echo "Evaluating Readers/Writers..."
 measure_performance $READERS_WRITERS_PROGRAM $RW_OUTPUT_FILE THREAD_COUNTS[@]
 
 echo "Performance evaluation complete."
+
+make clean
