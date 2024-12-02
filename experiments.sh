@@ -4,25 +4,11 @@
 PRODUCERS_CONSUMERS_PROGRAM="./prod_conso_sem"
 READERS_WRITERS_PROGRAM="./readers_writers_sem"
 
-# Output repository for CSV files
-OUTPUT_REPO="./performance_data"
-
-#Have to be sure that the repo exists
-mkdir -p $OUTPUT_REPO
-
-# Output CSV files
-PC_OUTPUT_FILE="$OUTPUT_REPO/performance_prod_conso_sem.csv"
-RW_OUTPUT_FILE="$OUTPUT_REPO/performance_readers_writers_sem.csv"
-
 # Number of threads
 THREAD_COUNTS=(2 4 8 16 32)
 
 # Number of runs per configuration
 N=5
-
-# Prepare the CSV files
-echo "Threads,Run,Time (s)" > $PC_OUTPUT_FILE
-echo "Threads,Run,Time (s)" > $RW_OUTPUT_FILE
 
 # Function to measure performance for a given program
 measure_performance() {
@@ -48,8 +34,8 @@ measure_performance() {
             # Calculate elapsed time
             FINAL_TIME=$(echo "$END_TIME - $START_TIME" | bc)
 
-            # Append results to the CSV file
-            echo "$THREADS,$RUN,$FINAL_TIME" >> $output_file
+            # Display results in the terminal
+            echo "Program: $program | Threads: $THREADS | Run: $RUN | Time: $FINAL_TIME seconds"
         done
     done
 }
