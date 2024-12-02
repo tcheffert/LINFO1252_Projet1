@@ -28,8 +28,10 @@ measure_performance() {
 
         # Run the program multiple times for each configuration
         for ((RUN=1; RUN<=N; RUN++)); do
-            # Measure the execution time using /usr/bin/time
-            FINAL_TIME=$(/usr/bin/time -f "%e" $program $READERS $WRITERS > /dev/null 2>&1)
+            START_TIME=$(date +%s.%N)
+            $program $READERS $WRITERS > /dev/null 2>&1
+            END_TIME=$(date +%s.%N)
+            FINAL_TIME=$(echo "$END_TIME - $START_TIME" | bc)
 
             # Display results in the terminal
             echo "Program: $program | Threads: $THREADS | Run: $RUN | Time: $FINAL_TIME seconds"
