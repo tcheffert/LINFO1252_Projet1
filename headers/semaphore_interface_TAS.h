@@ -64,8 +64,8 @@ void semaphore_wait(semaphore_t *sem)
 
     while (sem->value <= 0)                             // Tant que la ressource n'est pas disponible
     {                                                   // Les threads en attente sont bloqués sur une condition
-        //pthread_cond_wait(&sem->condition, sem->lock); // Attente jusqu'à notification
-        // wait 
+        unlock_lock(sem->lock);
+        lock_lock(sem->lock);
     }
 
     sem->value--; // Consomme une unité de ressource
