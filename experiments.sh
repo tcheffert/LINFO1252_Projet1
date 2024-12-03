@@ -1,9 +1,24 @@
 #!/bin/bash
 
 # Paths to programs compiled
+## PTHREAD
+
+PHILOSOPHERS_PROGRAM="./philosophers"
+PRODUCERS_CONSUMERS_PROGRAM="./producers_consumers"
+READERS_WRITERS_PROGRAM="./readers_writers"
+
+## TAS
+'
 PHILOSOPHERS_PROGRAM="./philosophers_TAS"
 PRODUCERS_CONSUMERS_PROGRAM="./prod_conso_TAS"
 READERS_WRITERS_PROGRAM="./readers_writers_TAS"
+'
+## TATAS
+'
+PHILOSOPHERS_PROGRAM="./philosophers_TATAS"
+PRODUCERS_CONSUMERS_PROGRAM="./prod_conso_TATAS"
+READERS_WRITERS_PROGRAM="./readers_writers_TATAS"
+'
 
 # Number of threads
 THREAD_COUNTS=(2 4 8 16 32)
