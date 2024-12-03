@@ -1,6 +1,6 @@
-#include "headers/semaphore_interface.h"
-#include "headers/imports.h"
-#include "headers/TAS.h"
+#include "headers/semaphore_interface_TATAS.h"
+#include "headers/imports_TATAS.h"
+#include "headers/TATAS.h"
 
 // Nombre de fois où les lecteurs et écrivains s'effecturont
 #define N_readings 2540

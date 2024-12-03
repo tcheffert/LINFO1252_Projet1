@@ -1,6 +1,7 @@
-#include "headers/semaphore_interface.h"
-#include "headers/imports.h"
-#include "headers/TAS.h"
+#include "headers/semaphore_interface_TATAS.h"
+#include "headers/imports_TATAS.h"
+#include "headers/TATAS.h"
+
 // Initialisation
 #define N 8            // places dans le buffer
 #define N_elems 131072 // nombre d’éléments produits (et donc consommé)
@@ -39,7 +40,7 @@ int remove_item()
 
 // Producteur
 // Signature changée pour ne pas avoir de warnings plus tard avec pthread_create
-void *producer(void *)
+void *producer(void *arg)
 {
     while (1)
     {
@@ -66,7 +67,7 @@ void *producer(void *)
 
 // Consommateur
 // Signature changée pour ne pas avoir de warnings plus tard avec pthread_create
-void *consumer(void *)
+void *consumer(void *arg)
 {
     while (1)
     {
