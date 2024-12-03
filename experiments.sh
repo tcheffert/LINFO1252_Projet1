@@ -8,7 +8,7 @@ N=5
 
 # Compile programs
 echo "Compiling programs..."
-make all
+#make all
 
 # Function to measure performance for a given program
 measure_performance() {
@@ -76,7 +76,7 @@ measure_performance $READERS_WRITERS_PROGRAM THREAD_COUNTS[@]
 
 # Clean up build files
 echo "Cleaning up..."
-make clean
+#make clean
 if [[ $? -ne 0 ]]; then
     echo "Warning: Failed to clean build files." >&2
 fi
