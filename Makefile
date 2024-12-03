@@ -6,9 +6,14 @@ FILES = philosophers philosophers_TAS philosophers_TATAS \
         producers_consumers prod_conso_TAS prod_conso_TATAS \
         readers_writers readers_writers_TAS readers_writers_TATAS \
         tests/test-and-set tests/test-and-test-and-set tests/test_sem
+
+DEPENDENCIES = headers/imports.h headers/import_TAS.h headers/import_TATAS.h \
+		headers/semaphore_interface.h headers/semaphore_interface_TAS.h \
+		headers/TAS.h headers/TATAS.h
+
 EXEC = $(FILES:%=%)
 
-all: $(EXEC)
+all: $(DEPENDENCIES) $(EXEC)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
