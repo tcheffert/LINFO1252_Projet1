@@ -7,7 +7,7 @@ FILES = philosophers philosophers_TAS philosophers_TATAS \
         readers_writers readers_writers_TAS readers_writers_TATAS \
         tests/test-and-set tests/test-and-test-and-set tests/test_sem
 
-DEPENDENCIES = headers/imports.h headers/import_TAS.h headers/import_TATAS.h \
+DEPENDENCIES = headers/imports.h headers/imports_TAS.h headers/imports_TATAS.h \
 		headers/semaphore_interface.h headers/semaphore_interface_TAS.h \
 		headers/TAS.h headers/TATAS.h
 
@@ -36,10 +36,10 @@ tatas: tests/test-and-test-and-set.c headers/TATAS.h
 philosophers: philosophers.c headers/imports.h
 	$(CC) $(CFLAGS) $< -o $@ $(LIBS)
 
-philosophers_TAS: philosophers_TAS.c headers/semaphore_interface_TAS.h headers/TAS.h headers/import_TAS.h
+philosophers_TAS: philosophers_TAS.c headers/semaphore_interface_TAS.h headers/TAS.h headers/imports_TAS.h
 	$(CC) $(CFLAGS) $< -o $@ $(LIBS)
 
-philosophers_TATAS: philosophers_TAS.c headers/semaphore_interface_TAS.h headers/TATAS.h headers/import_TATAS.h
+philosophers_TATAS: philosophers_TAS.c headers/semaphore_interface_TAS.h headers/TATAS.h headers/imports_TATAS.h
 	$(CC) $(CFLAGS) $< -o $@ $(LIBS)
 
 ## Producers and Consumers
@@ -47,10 +47,10 @@ philosophers_TATAS: philosophers_TAS.c headers/semaphore_interface_TAS.h headers
 prod_conso: producers_consumers.c headers/imports.h
 	$(CC) $(CFLAGS) $< -o $@ $(LIBS)
 
-prod_conso_TAS: prod_conso_TAS.c headers/semaphore_interface_TAS.h headers/TAS.h headers/import_TAS.h
+prod_conso_TAS: prod_conso_TAS.c headers/semaphore_interface_TAS.h headers/TAS.h headers/imports_TAS.h
 	$(CC) $(CFLAGS) $< -o $@ $(LIBS)
 
-prod_conso_TATAS: prod_conso_TAS.c headers/semaphore_interface_TAS.h headers/TATAS.h headers/import_TATAS.h
+prod_conso_TATAS: prod_conso_TAS.c headers/semaphore_interface_TAS.h headers/TATAS.h headers/imports_TATAS.h
 	$(CC) $(CFLAGS) $< -o $@ $(LIBS)
 
 ## Readers and Writers
@@ -58,10 +58,10 @@ prod_conso_TATAS: prod_conso_TAS.c headers/semaphore_interface_TAS.h headers/TAT
 readers_writers: readers_writers.c headers/imports.h
 	$(CC) $(CFLAGS) $< -o $@ $(LIBS)
 
-readers_writers_TAS: readers_writers_TAS.c headers/semaphore_interface_TAS.h headers/TAS.h headers/import_TAS.h
+readers_writers_TAS: readers_writers_TAS.c headers/semaphore_interface_TAS.h headers/TAS.h headers/imports_TAS.h
 	$(CC) $(CFLAGS) $< -o $@ $(LIBS)
 
-readers_writers_TATAS: readers_writers_TAS.c headers/semaphore_interface_TAS.h headers/TATAS.h headers/import_TATAS.h
+readers_writers_TATAS: readers_writers_TAS.c headers/semaphore_interface_TAS.h headers/TATAS.h headers/imports_TATAS.h
 	$(CC) $(CFLAGS) $< -o $@ $(LIBS)
 
 clean:
