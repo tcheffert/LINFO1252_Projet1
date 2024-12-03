@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Werror
+CFLAGS = -Wall -Werror -pthread -g
 LIBS = -lpthread
 
 FILES = philosophers philosophers_TAS philosophers_TATAS \
