@@ -2,8 +2,12 @@ CC = gcc
 CFLAGS = -Wall -Werror -pthread -g
 LIBS = -lpthread
 
-FILES = philosophers philosophers_TAS philosophers_TATAS \
+#FILES = philosophers philosophers_TAS philosophers_TATAS \
 		producers_consumers prod_conso_TAS prod_conso_TATAS \
+        readers_writers readers_writers_TAS readers_writers_TATAS \
+        tests/test-and-set tests/test-and-test-and-set tests/test_sem
+
+FILES = producers_consumers prod_conso_TAS prod_conso_TATAS \
         readers_writers readers_writers_TAS readers_writers_TATAS \
         tests/test-and-set tests/test-and-test-and-set tests/test_sem
 
@@ -36,14 +40,14 @@ tatas: tests/test-and-test-and-set.c headers/TATAS.h
 
 ## Philosophers
 
-philosophers: philosophers.c headers/imports.h
-	$(CC) $(CFLAGS) $< -o $@ $(LIBS)
+# philosophers: philosophers.c headers/imports.h
+# 	$(CC) $(CFLAGS) $< -o $@ $(LIBS)
 
-philosophers_TAS: philosophers_TAS.c headers/semaphore_interface_TAS.h headers/TAS.h headers/imports_TAS.h
-	$(CC) $(CFLAGS) $< -o $@ $(LIBS)
+# philosophers_TAS: philosophers_TAS.c headers/semaphore_interface_TAS.h headers/TAS.h headers/imports_TAS.h
+# 	$(CC) $(CFLAGS) $< -o $@ $(LIBS)
 
-philosophers_TATAS: philosophers_TATAS.c headers/semaphore_interface_TATAS.h headers/TATAS.h headers/imports_TATAS.h
-	$(CC) $(CFLAGS) $< -o $@ $(LIBS)
+# philosophers_TATAS: philosophers_TATAS.c headers/semaphore_interface_TATAS.h headers/TATAS.h headers/imports_TATAS.h
+# 	$(CC) $(CFLAGS) $< -o $@ $(LIBS)
 
 ## Producers and Consumers
 
