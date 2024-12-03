@@ -43,36 +43,30 @@ measure_performance() {
         done
     done
 }
-## PTHREAD
 
-PHILOSOPHERS_PROGRAM="./philosophers"
-PRODUCERS_CONSUMERS_PROGRAM="./producers_consumers"
-READERS_WRITERS_PROGRAM="./readers_writers"
-
-
-measure_performance $PHILOSOPHERS_PROGRAM THREAD_COUNTS[@]
-measure_performance $PRODUCERS_CONSUMERS_PROGRAM THREAD_COUNTS[@]
-measure_performance $READERS_WRITERS_PROGRAM THREAD_COUNTS[@]
-
-## TAS
-
-PHILOSOPHERS_PROGRAM="./philosophers_TAS"
-PRODUCERS_CONSUMERS_PROGRAM="./prod_conso_TAS"
-READERS_WRITERS_PROGRAM="./readers_writers_TAS"
-
-measure_performance $PHILOSOPHERS_PROGRAM THREAD_COUNTS[@]
-measure_performance $PRODUCERS_CONSUMERS_PROGRAM THREAD_COUNTS[@]
-measure_performance $READERS_WRITERS_PROGRAM THREAD_COUNTS[@]
-
-## TATAS
-
-PHILOSOPHERS_PROGRAM="./philosophers_TATAS"
+# Producers Consumers
 PRODUCERS_CONSUMERS_PROGRAM="./prod_conso_TATAS"
-READERS_WRITERS_PROGRAM="./readers_writers_TATAS"
-
-measure_performance $PHILOSOPHERS_PROGRAM THREAD_COUNTS[@]
 measure_performance $PRODUCERS_CONSUMERS_PROGRAM THREAD_COUNTS[@]
+PRODUCERS_CONSUMERS_PROGRAM="./prod_conso_TAS"
+measure_performance $PRODUCERS_CONSUMERS_PROGRAM THREAD_COUNTS[@]
+PRODUCERS_CONSUMERS_PROGRAM="./producers_consumers"
+measure_performance $PRODUCERS_CONSUMERS_PROGRAM THREAD_COUNTS[@]
+
+# Readers Writers
+READERS_WRITERS_PROGRAM="./readers_writers_TATAS"
 measure_performance $READERS_WRITERS_PROGRAM THREAD_COUNTS[@]
+READERS_WRITERS_PROGRAM="./readers_writers_TAS"
+measure_performance $READERS_WRITERS_PROGRAM THREAD_COUNTS[@]
+READERS_WRITERS_PROGRAM="./readers_writers"
+measure_performance $READERS_WRITERS_PROGRAM THREAD_COUNTS[@]
+
+# Philosophers
+PHILOSOPHERS_PROGRAM="./philosophers_TATAS"
+measure_performance $PHILOSOPHERS_PROGRAM THREAD_COUNTS[@]
+PHILOSOPHERS_PROGRAM="./philosophers_TAS"
+measure_performance $PHILOSOPHERS_PROGRAM THREAD_COUNTS[@]
+PHILOSOPHERS_PROGRAM="./philosophers"
+measure_performance $PHILOSOPHERS_PROGRAM THREAD_COUNTS[@]
 
 # Clean up build files
 echo "Cleaning up..."
