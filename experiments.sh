@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Paths to programs compiled
+PHILOSOPHERS_PROGRAM="./philosophers_sem"
 PRODUCERS_CONSUMERS_PROGRAM="./prod_conso_sem"
 READERS_WRITERS_PROGRAM="./readers_writers_sem"
 
@@ -20,6 +21,7 @@ measure_performance() {
     local thread_counts=("${!2}")
 
     echo "Evaluating $program..."
+    bc_scale=9
 
     # Loop through each thread count
     for THREADS in "${thread_counts[@]}"; do
@@ -31,13 +33,16 @@ measure_performance() {
             START_TIME=$(date +%s.%N)
             $program $READERS $WRITERS > /dev/null 2>&1
             END_TIME=$(date +%s.%N)
-            FINAL_TIME=$(echo "$END_TIME - $START_TIME" | bc)
+            FINAL_TIME=$(echo "scale=$bc_scale; $END_TIME - $START_TIME" | bc)
 
             # Display results in the terminal
             echo "Program: $program | Threads: $THREADS | Run: $RUN | Time: $FINAL_TIME seconds"
         done
     done
 }
+
+# Measure performance for philosophers
+measure_performance $PHILOSOPHERS_PROGRAM THREAD_COUNTS[@]
 
 # Measure performance for producers/consumers
 measure_performance $PRODUCERS_CONSUMERS_PROGRAM THREAD_COUNTS[@]
