@@ -3,9 +3,9 @@ CFLAGS = -Wall -Werror -pthread -g
 LIBS = -lpthread
 
 FILES = philosophers philosophers_TAS philosophers_TATAS \
-        readers_writers readers_writers_TAS readers_writers_TATAS \
-        tests/test-and-set tests/test-and-test-and-set tests/test_sem \
 		producers_consumers prod_conso_TAS prod_conso_TATAS
+        readers_writers readers_writers_TAS readers_writers_TATAS \
+        tests/test-and-set tests/test-and-test-and-set tests/test_sem
 
 DEPENDENCIES = headers/imports.h headers/imports_TAS.h headers/imports_TATAS.h \
 		headers/semaphore_interface.h headers/semaphore_interface_TAS.h headers/semaphore_interface_TATAS.h \
