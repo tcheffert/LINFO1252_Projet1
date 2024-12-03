@@ -3,7 +3,7 @@ CFLAGS = -Wall -Werror -pthread -g
 LIBS = -lpthread
 
 FILES = philosophers philosophers_TAS philosophers_TATAS \
-		producers_consumers prod_conso_TAS prod_conso_TATAS
+		producers_consumers prod_conso_TAS prod_conso_TATAS \
         readers_writers readers_writers_TAS readers_writers_TATAS \
         tests/test-and-set tests/test-and-test-and-set tests/test_sem
 
