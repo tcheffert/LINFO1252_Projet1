@@ -61,12 +61,12 @@ READERS_WRITERS_PROGRAM="./readers_writers"
 measure_performance $READERS_WRITERS_PROGRAM THREAD_COUNTS[@]
 
 # Philosophers
-PHILOSOPHERS_PROGRAM="./philosophers_TATAS"
-measure_performance $PHILOSOPHERS_PROGRAM THREAD_COUNTS[@]
-PHILOSOPHERS_PROGRAM="./philosophers_TAS"
-measure_performance $PHILOSOPHERS_PROGRAM THREAD_COUNTS[@]
-PHILOSOPHERS_PROGRAM="./philosophers"
-measure_performance $PHILOSOPHERS_PROGRAM THREAD_COUNTS[@]
+# PHILOSOPHERS_PROGRAM="./philosophers_TATAS"
+# measure_performance $PHILOSOPHERS_PROGRAM THREAD_COUNTS[@]
+# PHILOSOPHERS_PROGRAM="./philosophers_TAS"
+# measure_performance $PHILOSOPHERS_PROGRAM THREAD_COUNTS[@]
+# PHILOSOPHERS_PROGRAM="./philosophers"
+# measure_performance $PHILOSOPHERS_PROGRAM THREAD_COUNTS[@]
 
 # Clean up build files
 echo "Cleaning up..."
