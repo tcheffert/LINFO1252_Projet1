@@ -8,7 +8,7 @@ FILES = philosophers philosophers_TAS philosophers_TATAS \
         tests/test-and-set tests/test-and-test-and-set tests/test_sem
 
 DEPENDENCIES = headers/imports.h headers/imports_TAS.h headers/imports_TATAS.h \
-		headers/semaphore_interface.h headers/semaphore_interface_TAS.h \
+		headers/semaphore_interface.h headers/semaphore_interface_TAS.h headers/semaphore_interface_TATAS.h \
 		headers/TAS.h headers/TATAS.h
 
 EXEC = $(FILES:%=%)
@@ -39,7 +39,7 @@ philosophers: philosophers.c headers/imports.h
 philosophers_TAS: philosophers_TAS.c headers/semaphore_interface_TAS.h headers/TAS.h headers/imports_TAS.h
 	$(CC) $(CFLAGS) $< -o $@ $(LIBS)
 
-philosophers_TATAS: philosophers_TAS.c headers/semaphore_interface_TAS.h headers/TATAS.h headers/imports_TATAS.h
+philosophers_TATAS: philosophers_TATAS.c headers/semaphore_interface_TATAS.h headers/TATAS.h headers/imports_TATAS.h
 	$(CC) $(CFLAGS) $< -o $@ $(LIBS)
 
 ## Producers and Consumers
@@ -50,7 +50,7 @@ prod_conso: producers_consumers.c headers/imports.h
 prod_conso_TAS: prod_conso_TAS.c headers/semaphore_interface_TAS.h headers/TAS.h headers/imports_TAS.h
 	$(CC) $(CFLAGS) $< -o $@ $(LIBS)
 
-prod_conso_TATAS: prod_conso_TAS.c headers/semaphore_interface_TAS.h headers/TATAS.h headers/imports_TATAS.h
+prod_conso_TATAS: prod_conso_TATAS.c headers/semaphore_interface_TATAS.h headers/TATAS.h headers/imports_TATAS.h
 	$(CC) $(CFLAGS) $< -o $@ $(LIBS)
 
 ## Readers and Writers
@@ -61,7 +61,7 @@ readers_writers: readers_writers.c headers/imports.h
 readers_writers_TAS: readers_writers_TAS.c headers/semaphore_interface_TAS.h headers/TAS.h headers/imports_TAS.h
 	$(CC) $(CFLAGS) $< -o $@ $(LIBS)
 
-readers_writers_TATAS: readers_writers_TAS.c headers/semaphore_interface_TAS.h headers/TATAS.h headers/imports_TATAS.h
+readers_writers_TATAS: readers_writers_TATAS.c headers/semaphore_interface_TATAS.h headers/TATAS.h headers/imports_TATAS.h
 	$(CC) $(CFLAGS) $< -o $@ $(LIBS)
 
 clean:
