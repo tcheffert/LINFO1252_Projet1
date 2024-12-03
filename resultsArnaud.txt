@@ -233,6 +233,8 @@ Program: ./readers_writers_TATAS | Threads: 32 | Run: 3 | Time: .033105759 secon
 Program: ./readers_writers_TATAS | Threads: 32 | Run: 4 | Time: .288853593 seconds
 Program: ./readers_writers_TATAS | Threads: 32 | Run: 5 | Time: .022564781 seconds
 
+
+
 arnaud@arnaud-VirtualBox:~/Downloads/SystInfo/LINFO1252_Projet1$ make
 gcc -Wall -Werror -pthread -g philosophers.c -o philosophers -lpthread
 gcc -Wall -Werror -pthread -g philosophers_TAS.c -o philosophers_TAS -lpthread
