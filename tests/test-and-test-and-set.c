@@ -1,5 +1,7 @@
 #include "../headers/TATAS.h"
 
+#include <pthread.h>
+
 int N; // Nb threads
 
 // Fonction simulant un traitement

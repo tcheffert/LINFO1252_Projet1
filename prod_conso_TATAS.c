@@ -2,6 +2,8 @@
 #include "headers/imports_TATAS.h"
 #include "headers/TATAS.h"
 
+#include <pthread.h>
+
 // Initialisation
 #define N 8            // places dans le buffer
 #define N_elems 131072 // nombre d’éléments produits (et donc consommé)

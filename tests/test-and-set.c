@@ -1,5 +1,7 @@
 #include "../headers/TAS.h"
 
+#include <pthread.h>
+
 int N; // Nb threads
 
 // Fonction simulant un traitement

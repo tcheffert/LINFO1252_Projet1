@@ -2,6 +2,8 @@
 #include "headers/imports_TAS.h"
 #include "headers/TAS.h"
 
+#include <pthread.h>
+
 // Initialisation
 #define N 8            // places dans le buffer
 #define N_elems 131072 // nombre d’éléments produits (et donc consommé)
