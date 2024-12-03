@@ -1,5 +1,5 @@
-#include "headers/imports.h"
 #include "headers/semaphore_interface.h"
+#include "headers/imports.h"
 #include "headers/TAS.h"
 
 #define cycles 1000000 // Nombre de cycles penser/manger pour chaque philospohe
