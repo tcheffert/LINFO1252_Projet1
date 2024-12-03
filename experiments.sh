@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Paths to programs compiled
-PHILOSOPHERS_PROGRAM="./philosophers_sem"
-PRODUCERS_CONSUMERS_PROGRAM="./prod_conso_sem"
-READERS_WRITERS_PROGRAM="./readers_writers_sem"
+PHILOSOPHERS_PROGRAM="./philosophers_TAS"
+PRODUCERS_CONSUMERS_PROGRAM="./prod_conso_TAS"
+READERS_WRITERS_PROGRAM="./readers_writers_TAS"
 
 # Number of threads
 THREAD_COUNTS=(2 4 8 16 32)
@@ -31,7 +31,13 @@ measure_performance() {
         # Run the program multiple times for each configuration
         for ((RUN=1; RUN<=N; RUN++)); do
             START_TIME=$(date +%s.%N)
-            $program $READERS $WRITERS > /dev/null 2>&1
+
+            if [[ "$program" == "$PHILOSOPHERS_PROGRAM" ]]; then
+                $program $THREADS > /dev/null 2>&1
+            else
+                $program $READERS $WRITERS > /dev/null 2>&1
+            fi
+
             END_TIME=$(date +%s.%N)
             FINAL_TIME=$(echo "scale=$bc_scale; $END_TIME - $START_TIME" | bc)
 
