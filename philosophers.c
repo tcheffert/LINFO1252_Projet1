@@ -99,8 +99,8 @@ void problem(int N)
 int main(int argc, char const *argv[])
 {
     // uncomment if manual launch
-    // valgrind --leak-check=full --show-leak-kinds=all ./philosophers 100
-    // ./philosophers 100
+    // valgrind --leak-check=full --show-leak-kinds=all ./philosophers 32
+    // ./philosophers 32
 
     if (argc != 2)
     {

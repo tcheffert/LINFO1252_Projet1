@@ -1,25 +1,5 @@
 #!/bin/bash
 
-# Paths to programs compiled
-## PTHREAD
-
-PHILOSOPHERS_PROGRAM="./philosophers"
-PRODUCERS_CONSUMERS_PROGRAM="./producers_consumers"
-READERS_WRITERS_PROGRAM="./readers_writers"
-
-## TAS
-'
-PHILOSOPHERS_PROGRAM="./philosophers_TAS"
-PRODUCERS_CONSUMERS_PROGRAM="./prod_conso_TAS"
-READERS_WRITERS_PROGRAM="./readers_writers_TAS"
-'
-## TATAS
-'
-PHILOSOPHERS_PROGRAM="./philosophers_TATAS"
-PRODUCERS_CONSUMERS_PROGRAM="./prod_conso_TATAS"
-READERS_WRITERS_PROGRAM="./readers_writers_TATAS"
-'
-
 # Number of threads
 THREAD_COUNTS=(2 4 8 16 32)
 
@@ -49,8 +29,10 @@ measure_performance() {
 
             if [[ "$program" == "$PHILOSOPHERS_PROGRAM" ]]; then
                 $program $THREADS > /dev/null 2>&1
+                #valgrind --leak-check=yes $program $THREADS
             else
                 $program $READERS $WRITERS > /dev/null 2>&1
+                #valgrind --leak-check=yes $program $READERS $WRITERS
             fi
 
             END_TIME=$(date +%s.%N)
@@ -61,14 +43,35 @@ measure_performance() {
         done
     done
 }
+## PTHREAD
 
-# Measure performance for philosophers
+PHILOSOPHERS_PROGRAM="./philosophers"
+PRODUCERS_CONSUMERS_PROGRAM="./producers_consumers"
+READERS_WRITERS_PROGRAM="./readers_writers"
+
+
 measure_performance $PHILOSOPHERS_PROGRAM THREAD_COUNTS[@]
-
-# Measure performance for producers/consumers
 measure_performance $PRODUCERS_CONSUMERS_PROGRAM THREAD_COUNTS[@]
+measure_performance $READERS_WRITERS_PROGRAM THREAD_COUNTS[@]
 
-# Measure performance for readers/writers
+## TAS
+
+PHILOSOPHERS_PROGRAM="./philosophers_TAS"
+PRODUCERS_CONSUMERS_PROGRAM="./prod_conso_TAS"
+READERS_WRITERS_PROGRAM="./readers_writers_TAS"
+
+measure_performance $PHILOSOPHERS_PROGRAM THREAD_COUNTS[@]
+measure_performance $PRODUCERS_CONSUMERS_PROGRAM THREAD_COUNTS[@]
+measure_performance $READERS_WRITERS_PROGRAM THREAD_COUNTS[@]
+
+## TATAS
+
+PHILOSOPHERS_PROGRAM="./philosophers_TATAS"
+PRODUCERS_CONSUMERS_PROGRAM="./prod_conso_TATAS"
+READERS_WRITERS_PROGRAM="./readers_writers_TATAS"
+
+measure_performance $PHILOSOPHERS_PROGRAM THREAD_COUNTS[@]
+measure_performance $PRODUCERS_CONSUMERS_PROGRAM THREAD_COUNTS[@]
 measure_performance $READERS_WRITERS_PROGRAM THREAD_COUNTS[@]
 
 # Clean up build files
