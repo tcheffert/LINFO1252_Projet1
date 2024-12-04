@@ -10,6 +10,7 @@ PHILOSOPHERS_PROGRAM="./philosophers_TATAS"
 
 # Compile programs
 echo "Compiling programs..."
+make clean
 make all
 
 # Function to measure performance for a given program
@@ -69,12 +70,5 @@ PHILOSOPHERS_PROGRAM="./philosophers_TAS"
 measure_performance $PHILOSOPHERS_PROGRAM THREAD_COUNTS[@]
 PHILOSOPHERS_PROGRAM="./philosophers"
 measure_performance $PHILOSOPHERS_PROGRAM THREAD_COUNTS[@]
-
-# Clean up build files
-echo "Cleaning up..."
-make clean
-if [[ $? -ne 0 ]]; then
-    echo "Warning: Failed to clean build files." >&2
-fi
 
 echo "Performance evaluation complete."
