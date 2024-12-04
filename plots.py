@@ -56,18 +56,18 @@ def plot_performance(data, title, output_file, color="blue", pdf=False):
 intoPdf = True
 
 # Plot for Producers/Consumers with new semaphore interface
-plot_performance(pc_data, "Performance Producers/Consumers depending on the numbers of Threads", "producers_consumers_performance", color="cornflowerblue", pdf=intoPdf)
+#plot_performance(pc_data, "Performance Producers/Consumers depending on the numbers of Threads", "producers_consumers_performance", color="cornflowerblue", pdf=intoPdf)
 # Plot for Producers/Consumers with new semaphore interface
-plot_performance(pc_sem_data, "Performance Producers/Consumers with our semaphore and lock interface depending on the numbers of Threads", "prod_conso_sem_performance", color="slateblue", pdf=intoPdf)
+#plot_performance(pc_sem_data, "Performance Producers/Consumers with our semaphore and lock interface depending on the numbers of Threads", "prod_conso_sem_performance", color="slateblue", pdf=intoPdf)
 
 
 # Plot for Readers/Writers
-plot_performance(rw_data, "Performance Readers/Writers depending on the numbers of Threads", "readers_writers_performance", color="mediumseagreen", pdf=intoPdf)
+#plot_performance(rw_data, "Performance Readers/Writers depending on the numbers of Threads", "readers_writers_performance", color="mediumseagreen", pdf=intoPdf)
 # Plot for Readers/Writers with new semaphore interface
-plot_performance(rw_sem_data, "Performance Readers/Writers with our semaphore and lock interface depending on the numbers of Threads", "readers_writers_sem_performance", color="mediumaquamarine", pdf=intoPdf)
+#plot_performance(rw_sem_data, "Performance Readers/Writers with our semaphore and lock interface depending on the numbers of Threads", "readers_writers_sem_performance", color="mediumaquamarine", pdf=intoPdf)
 
 
 # Plot for Philosophers
 plot_performance(philo_data, "Performance Philosophers depending on the numbers of Threads", "philosophers_performance", color="crimson", pdf=intoPdf)
 # Plot for Philosophers
-plot_performance(philo_sem_data, "Performance Philosophers with our semaphore and lock interface depending on the numbers of Threads", "philo_sem_performance", color="red", pdf=intoPdf)
+#plot_performance(philo_sem_data, "Performance Philosophers with our semaphore and lock interface depending on the numbers of Threads", "philo_sem_performance", color="red", pdf=intoPdf)
