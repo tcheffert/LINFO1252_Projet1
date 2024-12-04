@@ -28,18 +28,13 @@ measure_performance() {
 
         # Run the program multiple times for each configuration
         for ((RUN=1; RUN<=N; RUN++)); do
-            START_TIME=$(date +%s.%N)
-
             if [[ "$program" == "$PHILOSOPHERS_PROGRAM" ]]; then
-                $program $THREADS > /dev/null 2>&1
-                #valgrind --leak-check=yes $program $THREADS
+                # Measure execution time with /usr/bin/time for philosophers program
+                FINAL_TIME=$(/usr/bin/time -f "%e" $program $THREADS > /dev/null 2>&1)
             else
-                $program $READERS $WRITERS > /dev/null 2>&1
-                #valgrind --leak-check=yes $program $READERS $WRITERS
+                # Measure execution time with /usr/bin/time for other programs
+                FINAL_TIME=$(/usr/bin/time -f "%e" $program $READERS $WRITERS > /dev/null 2>&1)
             fi
-
-            END_TIME=$(date +%s.%N)
-            FINAL_TIME=$(echo "scale=$bc_scale; $END_TIME - $START_TIME" | bc)
 
             # Display results in the terminal
             echo "Program: $program | Threads: $THREADS | Run: $RUN | Time: $FINAL_TIME seconds"
