@@ -30,10 +30,10 @@ measure_performance() {
         for ((RUN=1; RUN<=N; RUN++)); do
             if [[ "$program" == "$PHILOSOPHERS_PROGRAM" ]]; then
                 # Measure execution time with /usr/bin/time for philosophers program
-                FINAL_TIME=$(/usr/bin/time -f "%e" $program $THREADS > /dev/null 2>&1)
+                FINAL_TIME=$(/usr/bin/time -f "%E" $program $THREADS 2>&1)
             else
                 # Measure execution time with /usr/bin/time for other programs
-                FINAL_TIME=$(/usr/bin/time -f "%e" $program $READERS $WRITERS > /dev/null 2>&1)
+                FINAL_TIME=$(/usr/bin/time -f "%E" $program $READERS $WRITERS 2>&1)
             fi
 
             # Display results in the terminal
