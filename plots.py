@@ -6,8 +6,11 @@ pc_csv = "performance_data/performance_producers_consumers.csv"
 pc_sem_csv = "performance_data/performance_prod_conso_sem.csv"
 rw_csv = "performance_data/performance_readers_writers.csv"
 rw_sem_csv = "performance_data/performance_readers_writers_sem.csv"
+#Philosophers problem
 philo_csv = "performance_data/performance_philosophers.csv"
-philo_sem_csv = "performance_data/performance_philo_sem.csv"
+philo_TAS_csv = "performance_data/perf_philo_TAS.csv"
+philo_TATAS_csv = "performance_data/perf_philo_TATAS.csv"
+
 
 
 # Load data
@@ -15,8 +18,11 @@ pc_data = pd.read_csv(pc_csv)
 pc_sem_data = pd.read_csv(pc_sem_csv)
 rw_data = pd.read_csv(rw_csv)
 rw_sem_data = pd.read_csv(rw_sem_csv)
+#Philosophers
 philo_data = pd.read_csv(philo_csv)
-philo_sem_data = pd.read_csv(philo_sem_csv)
+philo_data_TAS = pd.read_csv(philo_TAS_csv)
+philo_data_TATAS = pd.read_csv(philo_TATAS_csv)
+
 
 
 def plot_performance(data, title, output_file, color="blue", pdf=False):
@@ -67,7 +73,7 @@ intoPdf = True
 #plot_performance(rw_sem_data, "Performance Readers/Writers with our semaphore and lock interface depending on the numbers of Threads", "readers_writers_sem_performance", color="mediumaquamarine", pdf=intoPdf)
 
 
-# Plot for Philosophers
+#===Plot for Philosophers===#
 plot_performance(philo_data, "Performance Philosophers depending on the numbers of Threads", "philosophers_performance", color="crimson", pdf=intoPdf)
-# Plot for Philosophers
-#plot_performance(philo_sem_data, "Performance Philosophers with our semaphore and lock interface depending on the numbers of Threads", "philo_sem_performance", color="red", pdf=intoPdf)
+plot_performance(philo_data_TAS, "Performance Philosophers TAS depending on the numbers of Threads", "philo_TAS_performance", color="red", pdf=intoPdf)
+plot_performance(philo_data_TATAS, "Performance Philosophers TATAS depending on the numbers of Threads", "philo_TATAS_performance", color="darkred", pdf=intoPdf)

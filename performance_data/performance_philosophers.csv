@@ -1,4 +1,4 @@
-Thread,Run,Time ()
+Threads,Run,Time (s)
 2,1,0.12 
 2,2,0.12 
 2,3,0.15 
