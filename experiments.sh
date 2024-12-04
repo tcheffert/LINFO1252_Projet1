@@ -43,12 +43,12 @@ measure_performance() {
 }
 
 # Producers Consumers
-PRODUCERS_CONSUMERS_PROGRAM="./prod_conso_TATAS"
-measure_performance $PRODUCERS_CONSUMERS_PROGRAM THREAD_COUNTS[@]
-PRODUCERS_CONSUMERS_PROGRAM="./prod_conso_TAS"
-measure_performance $PRODUCERS_CONSUMERS_PROGRAM THREAD_COUNTS[@]
-PRODUCERS_CONSUMERS_PROGRAM="./producers_consumers"
-measure_performance $PRODUCERS_CONSUMERS_PROGRAM THREAD_COUNTS[@]
+#PRODUCERS_CONSUMERS_PROGRAM="./prod_conso_TATAS"
+#measure_performance $PRODUCERS_CONSUMERS_PROGRAM THREAD_COUNTS[@]
+#PRODUCERS_CONSUMERS_PROGRAM="./prod_conso_TAS"
+#measure_performance $PRODUCERS_CONSUMERS_PROGRAM THREAD_COUNTS[@]
+#PRODUCERS_CONSUMERS_PROGRAM="./producers_consumers"
+#measure_performance $PRODUCERS_CONSUMERS_PROGRAM THREAD_COUNTS[@]
 
 # Readers Writers
 #READERS_WRITERS_PROGRAM="./readers_writers_TATAS"
@@ -59,11 +59,11 @@ measure_performance $PRODUCERS_CONSUMERS_PROGRAM THREAD_COUNTS[@]
 #measure_performance $READERS_WRITERS_PROGRAM THREAD_COUNTS[@]
 
 # Philosophers
-#PHILOSOPHERS_PROGRAM="./philosophers_TATAS"
-#measure_performance $PHILOSOPHERS_PROGRAM THREAD_COUNTS[@]
-#PHILOSOPHERS_PROGRAM="./philosophers_TAS"
-#measure_performance $PHILOSOPHERS_PROGRAM THREAD_COUNTS[@]
-#PHILOSOPHERS_PROGRAM="./philosophers"
-#measure_performance $PHILOSOPHERS_PROGRAM THREAD_COUNTS[@]
+PHILOSOPHERS_PROGRAM="./philosophers_TATAS"
+measure_performance $PHILOSOPHERS_PROGRAM THREAD_COUNTS[@]
+PHILOSOPHERS_PROGRAM="./philosophers_TAS"
+measure_performance $PHILOSOPHERS_PROGRAM THREAD_COUNTS[@]
+PHILOSOPHERS_PROGRAM="./philosophers"
+measure_performance $PHILOSOPHERS_PROGRAM THREAD_COUNTS[@]
 
 echo "Performance evaluation complete."
