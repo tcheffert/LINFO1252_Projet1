@@ -57,11 +57,11 @@ measure_performance() {
 }
 
 # Readers Writers
-READERS_WRITERS_PROGRAM="./readers_writers_TATAS"
+READERS_WRITERS_PROGRAM="./prod_conso_TATAS"
 measure_performance $READERS_WRITERS_PROGRAM THREAD_COUNTS[@]
-READERS_WRITERS_PROGRAM="./readers_writers_TAS"
+READERS_WRITERS_PROGRAM="./prod_conso_TAS"
 measure_performance $READERS_WRITERS_PROGRAM THREAD_COUNTS[@]
-READERS_WRITERS_PROGRAM="./readers_writers"
+READERS_WRITERS_PROGRAM="./producers_consumers"
 measure_performance $READERS_WRITERS_PROGRAM THREAD_COUNTS[@]
 
 # Display CSV file content

@@ -1,0 +1,26 @@
+Program,Threads,Run,Time (s)
+./philosophers_TAS,2,1,0.19
+./philosophers_TAS,2,2,0.18
+./philosophers_TAS,2,3,0.16
+./philosophers_TAS,2,4,0.10
+./philosophers_TAS,2,5,0.20
+./philosophers_TAS,4,1,0.32
+./philosophers_TAS,4,2,0.43
+./philosophers_TAS,4,3,0.36
+./philosophers_TAS,4,4,0.29
+./philosophers_TAS,4,5,0.40
+./philosophers_TAS,8,1,0.71
+./philosophers_TAS,8,2,0.59
+./philosophers_TAS,8,3,0.62
+./philosophers_TAS,8,4,0.58
+./philosophers_TAS,8,5,0.69
+./philosophers_TAS,16,1,2.08
+./philosophers_TAS,16,2,2.10
+./philosophers_TAS,16,3,2.12
+./philosophers_TAS,16,4,2.18
+./philosophers_TAS,16,5,2.18
+./philosophers_TAS,32,1,6.11
+./philosophers_TAS,32,2,6.68
+./philosophers_TAS,32,3,5.92
+./philosophers_TAS,32,4,5.61
+./philosophers_TAS,32,5,6.47

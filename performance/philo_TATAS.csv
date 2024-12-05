@@ -1,0 +1,26 @@
+Program,Threads,Run,Time (s)
+./philosophers_TATAS,2,1,0.20
+./philosophers_TATAS,2,2,0.23
+./philosophers_TATAS,2,3,0.14
+./philosophers_TATAS,2,4,0.19
+./philosophers_TATAS,2,5,0.17
+./philosophers_TATAS,4,1,0.50
+./philosophers_TATAS,4,2,0.48
+./philosophers_TATAS,4,3,0.47
+./philosophers_TATAS,4,4,0.52
+./philosophers_TATAS,4,5,0.41
+./philosophers_TATAS,8,1,0.73
+./philosophers_TATAS,8,2,0.69
+./philosophers_TATAS,8,3,0.87
+./philosophers_TATAS,8,4,0.81
+./philosophers_TATAS,8,5,0.78
+./philosophers_TATAS,16,1,2.31
+./philosophers_TATAS,16,2,2.46
+./philosophers_TATAS,16,3,2.26
+./philosophers_TATAS,16,4,2.73
+./philosophers_TATAS,16,5,2.30
+./philosophers_TATAS,32,1,5.74
+./philosophers_TATAS,32,2,6.85
+./philosophers_TATAS,32,3,6.87
+./philosophers_TATAS,32,4,6.31
+./philosophers_TATAS,32,5,7.15

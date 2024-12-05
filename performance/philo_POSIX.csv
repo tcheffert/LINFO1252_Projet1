@@ -1,0 +1,26 @@
+Program,Threads,Run,Time (s)
+./philosophers,2,1,0.14
+./philosophers,2,2,0.17
+./philosophers,2,3,0.11
+./philosophers,2,4,0.10
+./philosophers,2,5,0.19
+./philosophers,4,1,0.29
+./philosophers,4,2,0.31
+./philosophers,4,3,0.40
+./philosophers,4,4,0.39
+./philosophers,4,5,0.33
+./philosophers,8,1,0.47
+./philosophers,8,2,0.43
+./philosophers,8,3,0.44
+./philosophers,8,4,0.50
+./philosophers,8,5,0.42
+./philosophers,16,1,0.66
+./philosophers,16,2,0.65
+./philosophers,16,3,0.65
+./philosophers,16,4,0.63
+./philosophers,16,5,0.67
+./philosophers,32,1,1.17
+./philosophers,32,2,1.12
+./philosophers,32,3,1.12
+./philosophers,32,4,1.19
+./philosophers,32,5,1.15
