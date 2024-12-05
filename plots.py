@@ -17,9 +17,9 @@ rw_csv = csvData("rw_POSIX")
 rw_TAS_csv = csvData("rw_TAS")
 rw_TATAS_csv = csvData("rw_TATAS")
 #Philosophers problem
-philo_csv = "performance_data/performance_philosophers.csv"
-philo_TAS_csv = "performance_data/perf_philo_TAS.csv"
-philo_TATAS_csv = "performance_data/perf_philo_TATAS.csv"
+philo_csv = csvData("philo_POSIX")
+philo_TAS_csv = csvData("philo_TAS")
+philo_TATAS_csv = csvData("philo_TATAS")
 
 
 
@@ -77,9 +77,9 @@ def plot_performance(data, title, output_file, color="blue", saveFig=False, pdf=
 intoPdf = True
 
 # Plot for Producers/Consumers with new semaphore interface
-plot_performance(pc_data, "Performance Producers/Consumers depending on the numbers of Threads", "producers_consumers_performance", color="cornflowerblue")
-plot_performance(pc_data_TAS, "Performance Producers/Consumers with our semaphore and lock interface depending on the numbers of Threads", "prod_conso_perf_TAS", color="slateblue")
-plot_performance(pc_data_TATAS, "Performance Producers/Consumers depending on the numbers of Threads", "prod_cons_perf_TATAS", color="cornflowerblue")
+#plot_performance(pc_data, "Performance Producers/Consumers depending on the numbers of Threads", "producers_consumers_performance", color="cornflowerblue")
+#plot_performance(pc_data_TAS, "Performance Producers/Consumers with our semaphore and lock interface depending on the numbers of Threads", "prod_conso_perf_TAS", color="slateblue")
+#plot_performance(pc_data_TATAS, "Performance Producers/Consumers depending on the numbers of Threads", "prod_cons_perf_TATAS", color="cornflowerblue")
 
 #===Plot for Readers/Writers===#
 #plot_performance(rw_data, "Performance Readers/Writers POSIX depending on the numbers of Threads", "readers_writers_performance", color="mediumseagreen")
@@ -88,6 +88,6 @@ plot_performance(pc_data_TATAS, "Performance Producers/Consumers depending on th
 
 
 #===Plot for Philosophers===#
-#plot_performance(philo_data, "Performance Philosophers POSIX depending on the numbers of Threads", "philosophers_performance", color="crimson", pdf=intoPdf)
-#plot_performance(philo_data_TAS, "Performance Philosophers TAS depending on the numbers of Threads", "philo_TAS_performance", color="red", pdf=intoPdf)
-#plot_performance(philo_data_TATAS, "Performance Philosophers TATAS depending on the numbers of Threads", "philo_TATAS_performance", color="darkred", pdf=intoPdf)
+plot_performance(philo_data, "Performance Philosophers POSIX depending on the numbers of Threads", "philosophers_performance", color="crimson", pdf=intoPdf)
+plot_performance(philo_data_TAS, "Performance Philosophers TAS depending on the numbers of Threads", "philo_TAS_performance", color="red", pdf=intoPdf)
+plot_performance(philo_data_TATAS, "Performance Philosophers TATAS depending on the numbers of Threads", "philo_TATAS_performance", color="darkred", pdf=intoPdf)
