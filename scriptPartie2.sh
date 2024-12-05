@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Paths to programs compiled
-PRODUCERS_CONSUMERS_PROGRAM="./producers_consumers"
-READERS_WRITERS_PROGRAM="./readers_writers"
+PRODUCERS_CONSUMERS_PROGRAM="./prod_conso_TATAS"
+READERS_WRITERS_PROGRAM="./readers_writers_TATAS"
 
 # Output repository for CSV files
 OUTPUT_REPO="./performance_local"
@@ -11,14 +11,14 @@ OUTPUT_REPO="./performance_local"
 mkdir -p $OUTPUT_REPO
 
 # Output CSV files
-PC_OUTPUT_FILE="$OUTPUT_REPO/pc_POSIX.csv"
-RW_OUTPUT_FILE="$OUTPUT_REPO/rw_POSIX.csv"
+PC_OUTPUT_FILE="$OUTPUT_REPO/pc_TATAS.csv"
+RW_OUTPUT_FILE="$OUTPUT_REPO/rw_TATAS.csv"
 
 # Number of threads
 THREAD_COUNTS=(2 4 8 16 32)
 
 # Number of runs per configuration
-N=5
+N=10
 
 # Prepare the CSV files
 echo "Threads,Run,Time (s)" > $PC_OUTPUT_FILE
@@ -37,7 +37,7 @@ measure_performance() {
 
         # Run the program multiple times for each configuration
         for ((RUN=1; RUN<=N; RUN++)); do
-        
+
             FINAL_TIME=$(/usr/bin/time -f "%E" $program $READERS $WRITERS 2>&1)
             # Append results to the CSV file
             echo "$THREADS,$RUN,$FINAL_TIME" >> $output_file
