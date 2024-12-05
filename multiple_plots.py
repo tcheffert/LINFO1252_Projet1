@@ -1,28 +1,34 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Helper function to get the data's file path
-def csvData(name: str):
-    repo = "performance/"
+#Helper function to get the data's file path
+def csvData(directory:str, name:str):
     formatFile = ".csv"
-    return repo + name + formatFile
+    return directory + name + formatFile
 
-# === File paths ===#
-# Prod/cons
-pc_csv = csvData("pc_POSIX")
-pc_TAS_csv = csvData("pc_TAS")
-pc_TATAS_csv = csvData("pc_TATAS")
-# Readers/Writers problem
-rw_csv = csvData("rw_POSIX")
-rw_TAS_csv = csvData("rw_TAS")
-rw_TATAS_csv = csvData("rw_TATAS")
-# Philosophers problem
-philo_csv = "performance_data/performance_philosophers.csv"
-philo_TAS_csv = "performance_data/perf_philo_TAS.csv"
-philo_TATAS_csv = "performance_data/perf_philo_TATAS.csv"
+#=== File paths ===#
+repo = "performance/"
+#Prod/cons
+pc_csv = csvData(repo, "pc_POSIX")
+pc_TAS_csv = csvData(repo, "pc_TAS")
+pc_TATAS_csv = csvData(repo, "pc_TATAS")
+#Readers/Writers problem
+rw_csv = csvData(repo, "rw_POSIX")
+rw_TAS_csv = csvData(repo, "rw_TAS")
+rw_TATAS_csv = csvData(repo, "rw_TATAS")
+#Philosophers problem
+philo_csv = csvData(repo, "philo_POSIX")
+philo_TAS_csv = csvData(repo, "philo_TAS")
+philo_TATAS_csv = csvData(repo, "philo_TATAS")
+#Test and Set
+test_and_set_csv_studsrv = csvData(repo, "test_and_set")
+test_and_set_csv_local = csvData("performance_local/", "test_and_set")
 
-# === Load data ===#
-# Prod/cons
+
+
+
+#=== Load data ===#
+#Prod/cons
 pc_data = pd.read_csv(pc_csv)
 pc_data_TAS = pd.read_csv(pc_TAS_csv)
 pc_data_TATAS = pd.read_csv(pc_TATAS_csv)
@@ -30,6 +36,15 @@ pc_data_TATAS = pd.read_csv(pc_TATAS_csv)
 rw_data = pd.read_csv(rw_csv)
 rw_data_TAS = pd.read_csv(rw_TAS_csv)
 rw_data_TATAS = pd.read_csv(rw_TATAS_csv)
+#Philosophers
+philo_data = pd.read_csv(philo_csv)
+philo_data_TAS = pd.read_csv(philo_TAS_csv)
+philo_data_TATAS = pd.read_csv(philo_TATAS_csv)
+#Test and Set
+test_and_set_data_studsrv = pd.read_csv(test_and_set_csv_studsrv)
+test_and_set_data_local = pd.read_csv(test_and_set_csv_local)
+
+
 
 # Function to plot multiple datasets
 def plot_multiple_datasets(datasets, labels, title, output_file, colors=None, saveFig=False, pdf=False):
@@ -85,11 +100,11 @@ def plot_multiple_datasets(datasets, labels, title, output_file, colors=None, sa
 
 # Plot for Producers/Consumers
 plot_multiple_datasets(
-    datasets=[rw_data, rw_data_TAS, rw_data_TATAS],
-    labels=["POSIX", "TAS", "TATAS"],
-    title="Performance Producers/Consumers",
-    output_file="producers_consumers_combined",
-    colors=["blue", "green", "red"],
+    datasets=[test_and_set_data_local, test_and_set_data_studsrv],
+    labels=["Local", "Studsrv"],
+    title="Performance Test and Set",
+    output_file="test_and_set_comparaison",
+    colors=["blue", "green"],
     saveFig=False,
     pdf=False
 )
