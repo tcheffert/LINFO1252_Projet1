@@ -1,18 +1,18 @@
 #!/bin/bash
 
 # Paths to programs compiled
-PRODUCERS_CONSUMERS_PROGRAM="./prod_conso_sem"
-READERS_WRITERS_PROGRAM="./readers_writers_sem"
+PRODUCERS_CONSUMERS_PROGRAM="./producers_consumers"
+READERS_WRITERS_PROGRAM="./readers_writers"
 
 # Output repository for CSV files
-OUTPUT_REPO="./performance_data"
+OUTPUT_REPO="./performance_local"
 
 #Have to be sure that the repo exists
 mkdir -p $OUTPUT_REPO
 
 # Output CSV files
-PC_OUTPUT_FILE="$OUTPUT_REPO/performance_prod_conso_sem.csv"
-RW_OUTPUT_FILE="$OUTPUT_REPO/performance_readers_writers_sem.csv"
+PC_OUTPUT_FILE="$OUTPUT_REPO/pc_POSIX.csv"
+RW_OUTPUT_FILE="$OUTPUT_REPO/rw_POSIX.csv"
 
 # Number of threads
 THREAD_COUNTS=(2 4 8 16 32)
@@ -37,19 +37,11 @@ measure_performance() {
 
         # Run the program multiple times for each configuration
         for ((RUN=1; RUN<=N; RUN++)); do
-            # Measure the execution time
-            START_TIME=$(date +%s.%N)
-            
-            # Run the program with suppressed output
-            $program $READERS $WRITERS > /dev/null 2>&1
-            
-            END_TIME=$(date +%s.%N)
-
-            # Calculate elapsed time
-            FINAL_TIME=$(echo "$END_TIME - $START_TIME" | bc)
-
+        
+            FINAL_TIME=$(/usr/bin/time -f "%E" $program $READERS $WRITERS 2>&1)
             # Append results to the CSV file
             echo "$THREADS,$RUN,$FINAL_TIME" >> $output_file
+
         done
     done
 }
