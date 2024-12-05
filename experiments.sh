@@ -4,9 +4,20 @@
 THREAD_COUNTS=(2 4 8 16 32)
 
 # Number of runs per configuration
-N=5
+N=10
 
 PHILOSOPHERS_PROGRAM="./philosophers_TATAS"
+
+RESULT_FILE="perf.csv"
+
+# Ensure any existing file is backed up or removed before starting
+if [[ -f $RESULT_FILE ]]; then
+    mv $RESULT_FILE "${RESULT_FILE}"
+    echo "Existing results file backed up as ${RESULT_FILE}.bak"
+fi
+
+# Initialize the CSV file with a header
+echo "Program,Threads,Run,Time (s)" > $RESULT_FILE
 
 # Compile programs
 echo "Compiling programs..."
@@ -37,18 +48,13 @@ measure_performance() {
             fi
 
             # Display results in the terminal
-            echo "Program: $program | Threads: $THREADS | Run: $RUN | Time: $FINAL_TIME seconds"
+            #echo "Program: $program | Threads: $THREADS | Run: $RUN | Time: $FINAL_TIME seconds"
+
+            # Append results to the CSV file
+            echo "$program,$THREADS,$RUN,$FINAL_TIME" >> $RESULT_FILE
         done
     done
 }
-
-# Producers Consumers
-#PRODUCERS_CONSUMERS_PROGRAM="./prod_conso_TATAS"
-#measure_performance $PRODUCERS_CONSUMERS_PROGRAM THREAD_COUNTS[@]
-#PRODUCERS_CONSUMERS_PROGRAM="./prod_conso_TAS"
-#measure_performance $PRODUCERS_CONSUMERS_PROGRAM THREAD_COUNTS[@]
-#PRODUCERS_CONSUMERS_PROGRAM="./producers_consumers"
-#measure_performance $PRODUCERS_CONSUMERS_PROGRAM THREAD_COUNTS[@]
 
 # Readers Writers
 READERS_WRITERS_PROGRAM="./readers_writers_TATAS"
@@ -58,12 +64,12 @@ measure_performance $READERS_WRITERS_PROGRAM THREAD_COUNTS[@]
 READERS_WRITERS_PROGRAM="./readers_writers"
 measure_performance $READERS_WRITERS_PROGRAM THREAD_COUNTS[@]
 
-# Philosophers
-#PHILOSOPHERS_PROGRAM="./philosophers_TATAS"
-#measure_performance $PHILOSOPHERS_PROGRAM THREAD_COUNTS[@]
-#PHILOSOPHERS_PROGRAM="./philosophers_TAS"
-#measure_performance $PHILOSOPHERS_PROGRAM THREAD_COUNTS[@]
-#PHILOSOPHERS_PROGRAM="./philosophers"
-#measure_performance $PHILOSOPHERS_PROGRAM THREAD_COUNTS[@]
+# Display CSV file content
+echo "Results saved in $RESULT_FILE:"
+cat $RESULT_FILE
+
+# Clean up the CSV file at the end
+rm -f $RESULT_FILE
+echo "Temporary results file $RESULT_FILE removed."
 
 echo "Performance evaluation complete."
