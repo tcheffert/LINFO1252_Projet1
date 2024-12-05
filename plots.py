@@ -2,24 +2,24 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 #Helper function to get the data's file path
-def csvData(name:str):
-    repo = "performance/"
+def csvData(directory:str, name:str):
     formatFile = ".csv"
-    return repo + name + formatFile
+    return directory + name + formatFile
 
 #=== File paths ===#
+repo = "performance_local/"
 #Prod/cons
-pc_csv = csvData("pc_POSIX")
-pc_TAS_csv = csvData("pc_TAS")
-pc_TATAS_csv = csvData("pc_TATAS")
+pc_csv = csvData(repo, "pc_POSIX")
+pc_TAS_csv = csvData(repo, "pc_TAS")
+pc_TATAS_csv = csvData(repo, "pc_TATAS")
 #Readers/Writers problem
-rw_csv = csvData("rw_POSIX")
-rw_TAS_csv = csvData("rw_TAS")
-rw_TATAS_csv = csvData("rw_TATAS")
+rw_csv = csvData(repo, "rw_POSIX")
+rw_TAS_csv = csvData(repo, "rw_TAS")
+rw_TATAS_csv = csvData(repo, "rw_TATAS")
 #Philosophers problem
-philo_csv = csvData("philo_POSIX")
-philo_TAS_csv = csvData("philo_TAS")
-philo_TATAS_csv = csvData("philo_TATAS")
+philo_csv = csvData(repo, "philo_POSIX")
+philo_TAS_csv = csvData(repo, "philo_TAS")
+philo_TATAS_csv = csvData(repo, "philo_TATAS")
 
 
 
