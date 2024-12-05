@@ -1,15 +1,20 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
+#Helper function to get the data's file path
+def csvData(name:str):
+    repo = "performance/"
+    formatFile = ".csv"
+    return repo + name + formatFile
 #=== File paths ===#
 #Prod/cons
 pc_csv = "performance_data/performance_producers_consumers.csv"
 pc_TAS_csv = "performance_data/perf_pc_TAS.csv"
 pc_TATAS_csv = "performance_data/perf_pc_TATAS.csv"
 #Readers/Writers problem
-rw_csv = "performance_data/performance_readers_writers.csv"
-rw_TAS_csv = "performance_data/perf_rw_TAS.csv"
-rw_TATAS_csv = "performance_data/perf_rw_TATAS.csv"
+rw_csv = csvData("rw_POSIX")
+rw_TAS_csv = csvData("rw_TAS")
+rw_TATAS_csv = csvData("rw_TATAS")
 #Philosophers problem
 philo_csv = "performance_data/performance_philosophers.csv"
 philo_TAS_csv = "performance_data/perf_philo_TAS.csv"
@@ -33,7 +38,7 @@ philo_data_TATAS = pd.read_csv(philo_TATAS_csv)
 
 
 
-def plot_performance(data, title, output_file, color="blue", pdf=False):
+def plot_performance(data, title, output_file, color="blue", saveFig=False, pdf=False):
     """
     Plots the execution time vs. number of threads with mean and std deviation.
     
@@ -61,23 +66,24 @@ def plot_performance(data, title, output_file, color="blue", pdf=False):
     plt.legend()
     
     # Show the plot
-    if pdf == True:
-        plt.savefig('plots/' + output_file + ".pdf", format='pdf', bbox_inches="tight")
-    
-    plt.savefig('plots/' + output_file + ".png")
+    if saveFig == True:
+        if pdf == True:
+            plt.savefig('plots/' + output_file + ".pdf", format='pdf', bbox_inches="tight")
+        
+        plt.savefig('plots/' + output_file + ".png")
     plt.show()
 
 intoPdf = True
 
 # Plot for Producers/Consumers with new semaphore interface
-plot_performance(pc_data, "Performance Producers/Consumers depending on the numbers of Threads", "producers_consumers_performance", color="cornflowerblue", pdf=intoPdf)
-plot_performance(pc_data_TAS, "Performance Producers/Consumers with our semaphore and lock interface depending on the numbers of Threads", "prod_conso_perf_TAS", color="slateblue", pdf=intoPdf)
-plot_performance(pc_data_TATAS, "Performance Producers/Consumers depending on the numbers of Threads", "prod_cons_perf_TATAS", color="cornflowerblue", pdf=intoPdf)
+#plot_performance(pc_data, "Performance Producers/Consumers depending on the numbers of Threads", "producers_consumers_performance", color="cornflowerblue", pdf=intoPdf)
+#plot_performance(pc_data_TAS, "Performance Producers/Consumers with our semaphore and lock interface depending on the numbers of Threads", "prod_conso_perf_TAS", color="slateblue", pdf=intoPdf)
+#plot_performance(pc_data_TATAS, "Performance Producers/Consumers depending on the numbers of Threads", "prod_cons_perf_TATAS", color="cornflowerblue", pdf=intoPdf)
 
 #===Plot for Readers/Writers===#
-#plot_performance(rw_data, "Performance Readers/Writers POSIX depending on the numbers of Threads", "readers_writers_performance", color="mediumseagreen", pdf=intoPdf)
-#plot_performance(rw_data_TAS, "Performance Readers/Writers TAS depending on the numbers of Threads", "readers_writers_TAS_performance", color="mediumaquamarine", pdf=intoPdf)
-#plot_performance(rw_data_TATAS, "Performance Readers/Writers TATAS depending on the numbers of Threads", "readers_writers__TATAS_performance", color="mediumseagreen", pdf=intoPdf)
+plot_performance(rw_data, "Performance Readers/Writers POSIX depending on the numbers of Threads", "readers_writers_performance", color="mediumseagreen")
+plot_performance(rw_data_TAS, "Performance Readers/Writers TAS depending on the numbers of Threads", "readers_writers_TAS_performance", color="mediumaquamarine")
+plot_performance(rw_data_TATAS, "Performance Readers/Writers TATAS depending on the numbers of Threads", "readers_writers__TATAS_performance", color="mediumseagreen")
 
 
 #===Plot for Philosophers===#
