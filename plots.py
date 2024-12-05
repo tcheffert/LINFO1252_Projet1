@@ -78,8 +78,8 @@ def plot_performance(data, title, output_file, color="blue", saveFig=False, pdf=
         plt.savefig('plots/' + output_file + ".png")
     plt.show()
 
-save = False
-intoPdf = False
+save = True
+intoPdf = True
 
 #===Plot for Producers/Consumers===#
 #plot_performance(pc_data, "Performance Producers/Consumers POSIX depending on the numbers of Threads", "pc_POSIX_local", color="cornflowerblue", saveFig=save, pdf=intoPdf)
