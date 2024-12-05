@@ -7,7 +7,7 @@ def csvData(directory:str, name:str):
     return directory + name + formatFile
 
 #=== File paths ===#
-repo = "performance_local/"
+repo = "performance/"
 #Prod/cons
 pc_csv = csvData(repo, "pc_POSIX")
 pc_TAS_csv = csvData(repo, "pc_TAS")
