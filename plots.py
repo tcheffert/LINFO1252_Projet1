@@ -7,7 +7,7 @@ def csvData(directory:str, name:str):
     return directory + name + formatFile
 
 #=== File paths ===#
-repo = "performance/"
+repo = "performance_local/"
 #Prod/cons
 pc_csv = csvData(repo, "pc_POSIX")
 pc_TAS_csv = csvData(repo, "pc_TAS")
@@ -82,19 +82,19 @@ save = True
 intoPdf = True
 
 #===Plot for Producers/Consumers===#
-plot_performance(pc_data, "Performance Producers/Consumers POSIX depending on the numbers of Threads", "pc_POSIX_studsrv", color="cornflowerblue", saveFig=save, pdf=intoPdf)
-plot_performance(pc_data_TAS, "Performance Producers/Consumers TAS depending on the numbers of Threads", "pc_TAS_studsrv", color="slateblue", saveFig=save, pdf=intoPdf)
-plot_performance(pc_data_TATAS, "Performance Producers/Consumers TATAS depending on the numbers of Threads", "pc_TATAS_studsrv", color="cornflowerblue", saveFig=save, pdf=intoPdf)
+plot_performance(pc_data, "Performance Producers/Consumers POSIX depending on the numbers of Threads", "pc_POSIX_local", color="cornflowerblue", saveFig=save, pdf=intoPdf)
+plot_performance(pc_data_TAS, "Performance Producers/Consumers TAS depending on the numbers of Threads", "pc_TAS_local", color="slateblue", saveFig=save, pdf=intoPdf)
+plot_performance(pc_data_TATAS, "Performance Producers/Consumers TATAS depending on the numbers of Threads", "pc_TATAS_local", color="cornflowerblue", saveFig=save, pdf=intoPdf)
 
 #===Plot for Readers/Writers===#
-plot_performance(rw_data, "Performance Readers/Writers POSIX depending on the numbers of Threads", "rw_POSIX_studsrv", color="mediumseagreen", saveFig=save, pdf=intoPdf)
-plot_performance(rw_data_TAS, "Performance Readers/Writers TAS depending on the numbers of Threads", "rw_TAS_studsrv", color="mediumaquamarine", saveFig=save, pdf=intoPdf)
-plot_performance(rw_data_TATAS, "Performance Readers/Writers TATAS depending on the numbers of Threads", "rw_TATAS_studsrv", color="forestgreen", saveFig=save, pdf=intoPdf)
+plot_performance(rw_data, "Performance Readers/Writers POSIX depending on the numbers of Threads", "rw_POSIX_local", color="mediumseagreen", saveFig=save, pdf=intoPdf)
+plot_performance(rw_data_TAS, "Performance Readers/Writers TAS depending on the numbers of Threads", "rw_TAS_local", color="mediumaquamarine", saveFig=save, pdf=intoPdf)
+plot_performance(rw_data_TATAS, "Performance Readers/Writers TATAS depending on the numbers of Threads", "rw_TATAS_local", color="forestgreen", saveFig=save, pdf=intoPdf)
 
 #===Plot for Philosophers===#
-#plot_performance(philo_data, "Performance Philosophers POSIX depending on the numbers of Threads", "philo_POSIX_studsrv", color="crimson", saveFig=save, pdf=intoPdf)
-#plot_performance(philo_data_TAS, "Performance Philosophers TAS depending on the numbers of Threads", "philo_TAS_studsrv", color="red", saveFig=save, pdf=intoPdf)
-#plot_performance(philo_data_TATAS, "Performance Philosophers TATAS depending on the numbers of Threads", "philo_TATAS_studsrv", color="darkred", saveFig=save, pdf=intoPdf)
+plot_performance(philo_data, "Performance Philosophers POSIX depending on the numbers of Threads", "philo_POSIX_local", color="crimson", saveFig=save, pdf=intoPdf)
+plot_performance(philo_data_TAS, "Performance Philosophers TAS depending on the numbers of Threads", "philo_TAS_local", color="red", saveFig=save, pdf=intoPdf)
+plot_performance(philo_data_TATAS, "Performance Philosophers TATAS depending on the numbers of Threads", "philo_TATAS_local", color="darkred", saveFig=save, pdf=intoPdf)
 
 #===Plot for Test and Set===#
-plot_performance(test_and_set_data, "Performance Test and Set depending on the numbers of Threads", "test_and_set_studsrv", color="darkorchid", saveFig=save, pdf=intoPdf)
+plot_performance(test_and_set_data, "Performance Test and Set depending on the numbers of Threads", "test_and_set_local", color="darkorchid", saveFig=save, pdf=intoPdf)
