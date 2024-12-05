@@ -6,11 +6,12 @@ def csvData(name:str):
     repo = "performance/"
     formatFile = ".csv"
     return repo + name + formatFile
+
 #=== File paths ===#
 #Prod/cons
-pc_csv = "performance_data/performance_producers_consumers.csv"
-pc_TAS_csv = "performance_data/perf_pc_TAS.csv"
-pc_TATAS_csv = "performance_data/perf_pc_TATAS.csv"
+pc_csv = csvData("pc_POSIX")
+pc_TAS_csv = csvData("pc_TAS")
+pc_TATAS_csv = csvData("pc_TATAS")
 #Readers/Writers problem
 rw_csv = csvData("rw_POSIX")
 rw_TAS_csv = csvData("rw_TAS")
@@ -76,14 +77,14 @@ def plot_performance(data, title, output_file, color="blue", saveFig=False, pdf=
 intoPdf = True
 
 # Plot for Producers/Consumers with new semaphore interface
-#plot_performance(pc_data, "Performance Producers/Consumers depending on the numbers of Threads", "producers_consumers_performance", color="cornflowerblue", pdf=intoPdf)
-#plot_performance(pc_data_TAS, "Performance Producers/Consumers with our semaphore and lock interface depending on the numbers of Threads", "prod_conso_perf_TAS", color="slateblue", pdf=intoPdf)
-#plot_performance(pc_data_TATAS, "Performance Producers/Consumers depending on the numbers of Threads", "prod_cons_perf_TATAS", color="cornflowerblue", pdf=intoPdf)
+plot_performance(pc_data, "Performance Producers/Consumers depending on the numbers of Threads", "producers_consumers_performance", color="cornflowerblue")
+plot_performance(pc_data_TAS, "Performance Producers/Consumers with our semaphore and lock interface depending on the numbers of Threads", "prod_conso_perf_TAS", color="slateblue")
+plot_performance(pc_data_TATAS, "Performance Producers/Consumers depending on the numbers of Threads", "prod_cons_perf_TATAS", color="cornflowerblue")
 
 #===Plot for Readers/Writers===#
-plot_performance(rw_data, "Performance Readers/Writers POSIX depending on the numbers of Threads", "readers_writers_performance", color="mediumseagreen")
-plot_performance(rw_data_TAS, "Performance Readers/Writers TAS depending on the numbers of Threads", "readers_writers_TAS_performance", color="mediumaquamarine")
-plot_performance(rw_data_TATAS, "Performance Readers/Writers TATAS depending on the numbers of Threads", "readers_writers__TATAS_performance", color="mediumseagreen")
+#plot_performance(rw_data, "Performance Readers/Writers POSIX depending on the numbers of Threads", "readers_writers_performance", color="mediumseagreen")
+#plot_performance(rw_data_TAS, "Performance Readers/Writers TAS depending on the numbers of Threads", "readers_writers_TAS_performance", color="mediumaquamarine")
+#plot_performance(rw_data_TATAS, "Performance Readers/Writers TATAS depending on the numbers of Threads", "readers_writers__TATAS_performance", color="mediumseagreen")
 
 
 #===Plot for Philosophers===#
