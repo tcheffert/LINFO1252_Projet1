@@ -74,20 +74,21 @@ def plot_performance(data, title, output_file, color="blue", saveFig=False, pdf=
         plt.savefig('plots/' + output_file + ".png")
     plt.show()
 
+save = True
 intoPdf = True
 
 # Plot for Producers/Consumers with new semaphore interface
-#plot_performance(pc_data, "Performance Producers/Consumers depending on the numbers of Threads", "producers_consumers_performance", color="cornflowerblue")
-#plot_performance(pc_data_TAS, "Performance Producers/Consumers with our semaphore and lock interface depending on the numbers of Threads", "prod_conso_perf_TAS", color="slateblue")
-#plot_performance(pc_data_TATAS, "Performance Producers/Consumers depending on the numbers of Threads", "prod_cons_perf_TATAS", color="cornflowerblue")
+plot_performance(pc_data, "Performance Producers/Consumers POSIX depending on the numbers of Threads", "pc_POSIX_studsrv", color="cornflowerblue", saveFig=save, pdf=intoPdf)
+plot_performance(pc_data_TAS, "Performance Producers/Consumers TAS depending on the numbers of Threads", "pc_TAS_studsrv", color="slateblue", saveFig=save, pdf=intoPdf)
+plot_performance(pc_data_TATAS, "Performance Producers/Consumers TATAS depending on the numbers of Threads", "pc_TATAS_studsrv", color="cornflowerblue", saveFig=save, pdf=intoPdf)
 
 #===Plot for Readers/Writers===#
-#plot_performance(rw_data, "Performance Readers/Writers POSIX depending on the numbers of Threads", "readers_writers_performance", color="mediumseagreen")
-#plot_performance(rw_data_TAS, "Performance Readers/Writers TAS depending on the numbers of Threads", "readers_writers_TAS_performance", color="mediumaquamarine")
-#plot_performance(rw_data_TATAS, "Performance Readers/Writers TATAS depending on the numbers of Threads", "readers_writers__TATAS_performance", color="mediumseagreen")
+plot_performance(rw_data, "Performance Readers/Writers POSIX depending on the numbers of Threads", "rw_POSIX_studsrv", color="mediumseagreen", saveFig=save, pdf=intoPdf)
+plot_performance(rw_data_TAS, "Performance Readers/Writers TAS depending on the numbers of Threads", "rw_TAS_studsrv", color="mediumaquamarine", saveFig=save, pdf=intoPdf)
+plot_performance(rw_data_TATAS, "Performance Readers/Writers TATAS depending on the numbers of Threads", "rw_TATAS_studsrv", color="forestgreen", saveFig=save, pdf=intoPdf)
 
 
 #===Plot for Philosophers===#
-plot_performance(philo_data, "Performance Philosophers POSIX depending on the numbers of Threads", "philosophers_performance", color="crimson", pdf=intoPdf)
-plot_performance(philo_data_TAS, "Performance Philosophers TAS depending on the numbers of Threads", "philo_TAS_performance", color="red", pdf=intoPdf)
-plot_performance(philo_data_TATAS, "Performance Philosophers TATAS depending on the numbers of Threads", "philo_TATAS_performance", color="darkred", pdf=intoPdf)
+#plot_performance(philo_data, "Performance Philosophers POSIX depending on the numbers of Threads", "philo_POSIX_studsrv", color="crimson", saveFig=save, pdf=intoPdf)
+#plot_performance(philo_data_TAS, "Performance Philosophers TAS depending on the numbers of Threads", "philo_TAS_studsrv", color="red", saveFig=save, pdf=intoPdf)
+#plot_performance(philo_data_TATAS, "Performance Philosophers TATAS depending on the numbers of Threads", "philo_TATAS_studsrv", color="darkred", saveFig=save, pdf=intoPdf)
