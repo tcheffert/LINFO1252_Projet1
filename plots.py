@@ -20,6 +20,8 @@ rw_TATAS_csv = csvData(repo, "rw_TATAS")
 philo_csv = csvData(repo, "philo_POSIX")
 philo_TAS_csv = csvData(repo, "philo_TAS")
 philo_TATAS_csv = csvData(repo, "philo_TATAS")
+#Test and Set
+test_and_set_csv = csvData(repo, "test_and_set")
 
 
 
@@ -36,6 +38,8 @@ rw_data_TATAS = pd.read_csv(rw_TATAS_csv)
 philo_data = pd.read_csv(philo_csv)
 philo_data_TAS = pd.read_csv(philo_TAS_csv)
 philo_data_TATAS = pd.read_csv(philo_TATAS_csv)
+#Test and Set
+test_and_set_data = pd.read_csv(test_and_set_csv)
 
 
 
@@ -77,7 +81,7 @@ def plot_performance(data, title, output_file, color="blue", saveFig=False, pdf=
 save = True
 intoPdf = True
 
-# Plot for Producers/Consumers with new semaphore interface
+#===Plot for Producers/Consumers===#
 plot_performance(pc_data, "Performance Producers/Consumers POSIX depending on the numbers of Threads", "pc_POSIX_studsrv", color="cornflowerblue", saveFig=save, pdf=intoPdf)
 plot_performance(pc_data_TAS, "Performance Producers/Consumers TAS depending on the numbers of Threads", "pc_TAS_studsrv", color="slateblue", saveFig=save, pdf=intoPdf)
 plot_performance(pc_data_TATAS, "Performance Producers/Consumers TATAS depending on the numbers of Threads", "pc_TATAS_studsrv", color="cornflowerblue", saveFig=save, pdf=intoPdf)
@@ -87,8 +91,10 @@ plot_performance(rw_data, "Performance Readers/Writers POSIX depending on the nu
 plot_performance(rw_data_TAS, "Performance Readers/Writers TAS depending on the numbers of Threads", "rw_TAS_studsrv", color="mediumaquamarine", saveFig=save, pdf=intoPdf)
 plot_performance(rw_data_TATAS, "Performance Readers/Writers TATAS depending on the numbers of Threads", "rw_TATAS_studsrv", color="forestgreen", saveFig=save, pdf=intoPdf)
 
-
 #===Plot for Philosophers===#
 #plot_performance(philo_data, "Performance Philosophers POSIX depending on the numbers of Threads", "philo_POSIX_studsrv", color="crimson", saveFig=save, pdf=intoPdf)
 #plot_performance(philo_data_TAS, "Performance Philosophers TAS depending on the numbers of Threads", "philo_TAS_studsrv", color="red", saveFig=save, pdf=intoPdf)
 #plot_performance(philo_data_TATAS, "Performance Philosophers TATAS depending on the numbers of Threads", "philo_TATAS_studsrv", color="darkred", saveFig=save, pdf=intoPdf)
+
+#===Plot for Test and Set===#
+plot_performance(test_and_set_data, "Performance Test and Set depending on the numbers of Threads", "test_and_set_studsrv", color="darkorchid", saveFig=save, pdf=intoPdf)
