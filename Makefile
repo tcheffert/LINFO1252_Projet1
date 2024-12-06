@@ -36,7 +36,7 @@ tatas: tests/test-and-test-and-set.c headers/TATAS.h
 test: sem tas tatas
 	@echo "-------------------------------------------------------------------------------------"
 	@echo "All test targets have been built."
-	@echo "You can go in the \033[1;33mtests\033[0m file to run them with the desired number of threads: \033[1;32mcd tests/\033[0m "
+	@echo "You can go in the \033[1;31mtests\033[0m file to run them with the desired number of threads: \033[1;32mcd tests/\033[0m "
 
 ## Main programs
 
