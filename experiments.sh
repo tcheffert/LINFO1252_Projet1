@@ -4,7 +4,7 @@
 THREAD_COUNTS=(2 4 8 16 32)
 
 # Number of runs per configuration
-N=10
+N=5
 
 PHILOSOPHERS_PROGRAM="./philosophers_TATAS"
 
@@ -56,13 +56,21 @@ measure_performance() {
     done
 }
 
-# Readers Writers
+# Producers-Consumers
 READERS_WRITERS_PROGRAM="./prod_conso_TAS"
+measure_performance $READERS_WRITERS_PROGRAM THREAD_COUNTS[@]
+READERS_WRITERS_PROGRAM="./prod_conso_TATAS"
+measure_performance $READERS_WRITERS_PROGRAM THREAD_COUNTS[@]
+READERS_WRITERS_PROGRAM="./producers_consumers"
+measure_performance $READERS_WRITERS_PROGRAM THREAD_COUNTS[@]
+
+# Readers-Writers
+READERS_WRITERS_PROGRAM="./readers_writers"
 measure_performance $READERS_WRITERS_PROGRAM THREAD_COUNTS[@]
 READERS_WRITERS_PROGRAM="./readers_writers_TAS"
 measure_performance $READERS_WRITERS_PROGRAM THREAD_COUNTS[@]
-READERS_WRITERS_PROGRAM="./producers_consumers"
-#measure_performance $READERS_WRITERS_PROGRAM THREAD_COUNTS[@]
+READERS_WRITERS_PROGRAM="./readers_writers_TATAS"
+measure_performance $READERS_WRITERS_PROGRAM THREAD_COUNTS[@]
 
 # Display CSV file content
 echo "Results saved in $RESULT_FILE:"
