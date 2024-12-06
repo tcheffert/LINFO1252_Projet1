@@ -118,11 +118,43 @@ plot_multiple_datasets(
 """
 # Plot for task 2.3
 plot_multiple_datasets(
-    datasets=[test_and_set_csv_studsrv, test_and_test_and_set_data_30Runs],
+    datasets=[test_and_set_data_studsrv, test_and_test_and_set_data_studsrv],
     labels=["Test and Set", "Test and Test and Set"],
     title="Performance Test and Set vs Test and Test and Set",
     output_file="TAS_vs_TATAS_comparaison",
     colors=["blue", "green"],
-    saveFig=False,
-    pdf=False
+    saveFig=True,
+    pdf=True
+)
+
+# Plot for task 2.5
+# comparaison between philo , philo tas and philo tatas
+plot_multiple_datasets(
+    datasets=[philo_data, philo_data_TAS, philo_data_TATAS],
+    labels=["Philo POSIX", "Philo TAS", "Philo TATAS"],
+    title="Performance Philosophers",
+    output_file="philo_comparaison",
+    colors=["blue", "green", "red"],
+    saveFig=True,
+    pdf=True
+)
+# comparaison between rw , rw tas and rw tatas
+plot_multiple_datasets(
+    datasets=[rw_data, rw_data_TAS, rw_data_TATAS],
+    labels=["RW POSIX", "RW TAS", "RW TATAS"],
+    title="Performance Readers/Writers",
+    output_file="rw_comparaison",
+    colors=["blue", "green", "red"],
+    saveFig=True,
+    pdf=True
+)
+# comparaison between pc , pc tas and pc tatas
+plot_multiple_datasets(
+    datasets=[pc_data, pc_data_TAS, pc_data_TATAS],
+    labels=["PC POSIX", "PC TAS", "PC TATAS"],
+    title="Performance Producers/Consumers",
+    output_file="pc_comparaison",
+    colors=["blue", "green", "red"],
+    saveFig=True,
+    pdf=True
 )
