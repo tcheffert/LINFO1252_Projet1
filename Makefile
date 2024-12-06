@@ -13,6 +13,8 @@ DEPENDENCIES = headers/imports.h headers/imports_TAS.h headers/imports_TATAS.h \
 
 EXEC = $(FILES:%=%)
 
+PYTHON_SCRIPT = multiple_plots.py
+
 all: $(DEPENDENCIES) $(EXEC)
 
 %.o: %.c
@@ -70,3 +72,35 @@ readers_writers_TATAS: readers_writers_TATAS.c headers/semaphore_interface_TATAS
 clean:
 	rm -f $(EXEC) *.o
 	rm -f tests/sem tests/tas tests/tatas
+
+# Plot the graphs
+.PHONY: plot
+plot:
+	@echo "Running Python script to display the plots..."
+	python3 $(PYTHON_SCRIPT)
+
+help:
+	@echo "============================================================"
+	@echo "                         \033[1;33mMAKE COMMANDS\033[0m                     "
+	@echo "============================================================"
+	@echo ""
+	@echo "General Commands:"
+	@echo "  \033[1;32mall\033[0m           - Build all main executables and dependencies."
+	@echo "  \033[1;32mclean\033[0m         - Remove all built files and object files."
+	@echo "  \033[1;32mplot\033[0m          - Run the Python script to generate and display plots."
+	@echo ""
+	@echo "------------------------------------------------------------"
+	@echo "Specific Program Commands:"
+	@echo "  \033[1;34msem\033[0m               	- Build semaphore interface test executable (2.4)."
+	@echo "  \033[1;34mtas\033[0m               	- Build test-and-set lock test executable (2.2)."
+	@echo "  \033[1;34mtatas\033[0m             	- Build test-and-test-and-set lock test executable (2.3)."
+	@echo "  \033[1;34mprod_conso\033[0m        	- Build the producers and consumers program."
+	@echo "  \033[1;34mprod_conso_TAS\033[0m    	- Build the Test-And-Set version of the producers and consumers program."
+	@echo "  \033[1;34mprod_conso_TATAS\033[0m  	- Build the Test-And-Test-And-Set version of the producers and consumers program."
+	@echo "  \033[1;34mreaders_writers\033[0m   	- Build the readers and writers program."
+	@echo "  \033[1;34mreaders_writers_TAS\033[0m   - Build the Test-And-Set version of the readers and writers program."
+	@echo "  \033[1;34mreaders_writers_TATAS\033[0m - Build the Test-And-Test-And-Set version of the readers and writers program."
+	@echo ""
+	@echo "============================================================"
+	@echo "  Use '\033[1;33mmake <command>\033[0m' to execute a specific target."
+	@echo "============================================================"

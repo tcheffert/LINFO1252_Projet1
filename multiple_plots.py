@@ -86,7 +86,7 @@ def plot_multiple_datasets(datasets, labels, title, output_file, colors=None, sa
         )
     
     # Graph settings
-    plt.title(title)
+    plt.title(title, weight='bold')
     plt.xlabel("Number of Threads")
     plt.ylabel("Execution Time [s]")
     plt.ylim(0)  # y-axis starts at 0
@@ -102,6 +102,10 @@ def plot_multiple_datasets(datasets, labels, title, output_file, colors=None, sa
         plt.savefig('plots/' + output_file + ".pdf", format='pdf', bbox_inches="tight")
     plt.show()
 
+plotsColor2D = ["cornflowerblue","darkseagreen"]
+plotsColor3D = ["slateblue","mediumseagreen","indianred"]
+
+
 # Plot for Producers/Consumers
 """
 plot_multiple_datasets(
@@ -109,7 +113,7 @@ plot_multiple_datasets(
     labels=["Local", "Studsrv"],
     title="Performance Test and Set",
     output_file="test_and_set_comparaison",
-    colors=["blue", "green"],
+    colors=plotsColor2D,
     saveFig=False
 )
 """
@@ -117,9 +121,9 @@ plot_multiple_datasets(
 plot_multiple_datasets(
     datasets=[test_and_set_data_studsrv, test_and_test_and_set_data_studsrv],
     labels=["Test and Set", "Test and Test and Set"],
-    title="Performance Test and Set vs Test and Test and Set",
+    title='Performance "Test and Set" vs "Test and Test and Set" algorithms (2.2 & 2.3)',
     output_file="TAS_vs_TATAS_comparaison",
-    colors=["blue", "green"],
+    colors=plotsColor2D,
     saveFig=True
 )
 
@@ -128,26 +132,26 @@ plot_multiple_datasets(
 plot_multiple_datasets(
     datasets=[philo_data, philo_data_TAS, philo_data_TATAS],
     labels=["Philo POSIX", "Philo TAS", "Philo TATAS"],
-    title="Performance Philosophers",
+    title="Performance of the Philosophers Problem (1.1)",
     output_file="philo_comparaison",
-    colors=["blue", "green", "red"],
+    colors=plotsColor3D,
     saveFig=True
 )
 # comparaison between rw , rw tas and rw tatas
 plot_multiple_datasets(
     datasets=[rw_data, rw_data_TAS, rw_data_TATAS],
     labels=["RW POSIX", "RW TAS", "RW TATAS"],
-    title="Performance Readers/Writers",
+    title="Performance of the Readers/Writers Problem (1.3)",
     output_file="rw_comparaison",
-    colors=["blue", "green", "red"],
+    colors=plotsColor3D,
     saveFig=True
 )
 # comparaison between pc , pc tas and pc tatas
 plot_multiple_datasets(
     datasets=[pc_data, pc_data_TAS, pc_data_TATAS],
     labels=["PC POSIX", "PC TAS", "PC TATAS"],
-    title="Performance Producers/Consumers",
+    title="Performance of the Producers/Consumers Problem (1.2)",
     output_file="pc_comparaison",
-    colors=["blue", "green", "red"],
+    colors=plotsColor3D,
     saveFig=True
 )
