@@ -24,7 +24,6 @@ all: $(DEPENDENCIES) $(EXEC)
 	$(CC) $< -o $@ $(LIBS)
 
 ## Small tests for Semaphores and Locks
-
 sem: tests/test_sem.c headers/semaphore_interface.h
 	$(CC) $(CFLAGS) $< -o tests/$@ $(LIBS)
 
@@ -33,6 +32,11 @@ tas: tests/test-and-set.c headers/TAS.h
 
 tatas: tests/test-and-test-and-set.c headers/TATAS.h
 	$(CC) $(CFLAGS) $< -o tests/$@ $(LIBS)
+
+test: sem tas tatas
+	@echo "-------------------------------------------------------------------------------------"
+	@echo "All test targets have been built."
+	@echo "You can go in the \033[1;33mtests\033[0m file to run them with the desired number of threads: \033[1;32mcd tests/\033[0m "
 
 ## Main programs
 
@@ -87,6 +91,7 @@ help:
 	@echo "General Commands:"
 	@echo "  \033[1;32mall\033[0m           - Build all main executables and dependencies."
 	@echo "  \033[1;32mclean\033[0m         - Remove all built files and object files."
+	@echo "  \033[1;32mtest\033[0m          - Bulid all the tests in the \033[1;31mtests\033[0m file. Go the the file to run them."
 	@echo "  \033[1;32mplot\033[0m          - Run the Python script to generate and display plots."
 	@echo ""
 	@echo "------------------------------------------------------------"
