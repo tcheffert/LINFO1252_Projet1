@@ -7,7 +7,8 @@ def csvData(directory:str, name:str):
     return directory + name + formatFile
 
 #=== File paths ===#
-repo = "performance_local/"
+#repo = "performance_local/"
+repo = "performance/"
 #Prod/cons
 pc_csv = csvData(repo, "pc_POSIX")
 pc_TAS_csv = csvData(repo, "pc_TAS")
@@ -22,6 +23,9 @@ philo_TAS_csv = csvData(repo, "philo_TAS")
 philo_TATAS_csv = csvData(repo, "philo_TATAS")
 #Test and Set
 test_and_set_csv = csvData(repo, "test_and_set")
+#Test and Test and Set
+test_and_test_and_set_csv_studsrv = csvData(repo, "test_and_test_and_set")
+test_and_test_and_set_csv_30Runs = csvData(repo, "test_and_test_and_set30Runs")
 
 
 
@@ -40,6 +44,9 @@ philo_data_TAS = pd.read_csv(philo_TAS_csv)
 philo_data_TATAS = pd.read_csv(philo_TATAS_csv)
 #Test and Set
 test_and_set_data = pd.read_csv(test_and_set_csv)
+#Test and Test and Set
+test_and_test_and_set_data_studsrv = pd.read_csv(test_and_test_and_set_csv_studsrv)
+test_and_test_and_set_data_30Runs = pd.read_csv(test_and_test_and_set_csv_30Runs)
 
 
 
@@ -98,3 +105,7 @@ plot_performance(philo_data_TATAS, "Performance Philosophers TATAS depending on 
 
 #===Plot for Test and Set===#
 plot_performance(test_and_set_data, "Performance Test and Set depending on the numbers of Threads", "test_and_set_local", color="darkorchid", saveFig=save, pdf=intoPdf)
+
+#===Plot for Test and Test and Set===#
+plot_performance(test_and_test_and_set_data_studsrv, "Performance Test and Test and Set depending on the numbers of Threads", "test_and_test_and_set_studsrv", color="darkorange", saveFig=save, pdf=intoPdf)
+plot_performance(test_and_test_and_set_data_30Runs, "Performance Test and Test and Set with 30 runs depending on the numbers of Threads", "test_and_test_and_set30Runs", color="darkgoldenrod", saveFig=save, pdf=intoPdf)
