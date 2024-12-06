@@ -53,7 +53,7 @@ test_and_test_and_set_data_30Runs = pd.read_csv(test_and_test_and_set_csv_30Runs
 
 
 # Function to plot multiple datasets
-def plot_multiple_datasets(datasets, labels, title, output_file, colors=None, saveFig=False, pdf=False):
+def plot_multiple_datasets(datasets, labels, title, output_file, colors=None, saveFig=False):
     """
     Plots multiple datasets on the same plot.
 
@@ -99,9 +99,7 @@ def plot_multiple_datasets(datasets, labels, title, output_file, colors=None, sa
 
     # Save the plot if needed
     if saveFig:
-        if pdf:
-            plt.savefig('plots/' + output_file + ".pdf", format='pdf', bbox_inches="tight")
-        plt.savefig('plots/' + output_file + ".png")
+        plt.savefig('plots/' + output_file + ".pdf", format='pdf', bbox_inches="tight")
     plt.show()
 
 # Plot for Producers/Consumers
@@ -112,8 +110,7 @@ plot_multiple_datasets(
     title="Performance Test and Set",
     output_file="test_and_set_comparaison",
     colors=["blue", "green"],
-    saveFig=False,
-    pdf=False
+    saveFig=False
 )
 """
 # Plot for task 2.3
@@ -123,8 +120,7 @@ plot_multiple_datasets(
     title="Performance Test and Set vs Test and Test and Set",
     output_file="TAS_vs_TATAS_comparaison",
     colors=["blue", "green"],
-    saveFig=True,
-    pdf=True
+    saveFig=True
 )
 
 # Plot for task 2.5
@@ -135,8 +131,7 @@ plot_multiple_datasets(
     title="Performance Philosophers",
     output_file="philo_comparaison",
     colors=["blue", "green", "red"],
-    saveFig=True,
-    pdf=True
+    saveFig=True
 )
 # comparaison between rw , rw tas and rw tatas
 plot_multiple_datasets(
@@ -145,8 +140,7 @@ plot_multiple_datasets(
     title="Performance Readers/Writers",
     output_file="rw_comparaison",
     colors=["blue", "green", "red"],
-    saveFig=True,
-    pdf=True
+    saveFig=True
 )
 # comparaison between pc , pc tas and pc tatas
 plot_multiple_datasets(
@@ -155,6 +149,5 @@ plot_multiple_datasets(
     title="Performance Producers/Consumers",
     output_file="pc_comparaison",
     colors=["blue", "green", "red"],
-    saveFig=True,
-    pdf=True
+    saveFig=True
 )
