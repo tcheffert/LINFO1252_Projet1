@@ -23,6 +23,9 @@ philo_TATAS_csv = csvData(repo, "philo_TATAS")
 #Test and Set
 test_and_set_csv_studsrv = csvData(repo, "test_and_set")
 test_and_set_csv_local = csvData("performance_local/", "test_and_set")
+#Test and Test and Set
+test_and_test_and_set_csv_studsrv = csvData(repo, "test_and_test_and_set")
+test_and_test_and_set_csv_30Runs = csvData(repo, "test_and_test_and_set30Runs")
 
 
 
@@ -43,6 +46,9 @@ philo_data_TATAS = pd.read_csv(philo_TATAS_csv)
 #Test and Set
 test_and_set_data_studsrv = pd.read_csv(test_and_set_csv_studsrv)
 test_and_set_data_local = pd.read_csv(test_and_set_csv_local)
+#Test and Test and Set
+test_and_test_and_set_data_studsrv = pd.read_csv(test_and_test_and_set_csv_studsrv)
+test_and_test_and_set_data_30Runs = pd.read_csv(test_and_test_and_set_csv_30Runs)
 
 
 
@@ -99,11 +105,23 @@ def plot_multiple_datasets(datasets, labels, title, output_file, colors=None, sa
     plt.show()
 
 # Plot for Producers/Consumers
+"""
 plot_multiple_datasets(
     datasets=[test_and_set_data_local, test_and_set_data_studsrv],
     labels=["Local", "Studsrv"],
     title="Performance Test and Set",
     output_file="test_and_set_comparaison",
+    colors=["blue", "green"],
+    saveFig=False,
+    pdf=False
+)
+"""
+# Plot for task 2.3
+plot_multiple_datasets(
+    datasets=[test_and_set_csv_studsrv, test_and_test_and_set_data_30Runs],
+    labels=["Test and Set", "Test and Test and Set"],
+    title="Performance Test and Set vs Test and Test and Set",
+    output_file="TAS_vs_TATAS_comparaison",
     colors=["blue", "green"],
     saveFig=False,
     pdf=False
