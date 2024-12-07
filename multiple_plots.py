@@ -116,6 +116,7 @@ plot_multiple_datasets(
     colors=plotsColor2D,
     saveFig=False
 )
+"""
 
 # Plot for task 2.3
 plot_multiple_datasets(
@@ -124,8 +125,9 @@ plot_multiple_datasets(
     title='Performance "Test and Set" vs "Test and Test and Set" algorithms (2.2 & 2.3)',
     output_file="TAS_vs_TATAS_comparaison",
     colors=plotsColor2D,
-    saveFig=True
+    saveFig=False
 )
+"""
 
 # Plot for task 2.5
 # comparaison between philo , philo tas and philo tatas
@@ -146,7 +148,7 @@ plot_multiple_datasets(
     colors=plotsColor3D,
     saveFig=True
 )
-"""
+
 # comparaison between pc , pc tas and pc tatas
 plot_multiple_datasets(
     datasets=[pc_data, pc_data_TAS, pc_data_TATAS],
@@ -156,3 +158,4 @@ plot_multiple_datasets(
     colors=plotsColor3D,
     saveFig=True
 )
+"""
