@@ -23,12 +23,11 @@ void *philosophe(void *arg)
             lock_lock(&locks[right]);
             lock_lock(&locks[left]);
         }
-        // Graille
+        // manger
         unlock_lock(&locks[left]);
         unlock_lock(&locks[right]);
         count++;
     }
-    // printf("Philosophe %d a fini de manger, count : %d \n", *id,count);
     free(id); // Libérer la mémoire allouée pour l'identifiant
     return NULL;
 }
@@ -63,7 +62,6 @@ void problem(int N)
             perror("Error pthread_create");
             exit(1);
         }
-        // free(id);
     }
 
     // Threads philosophes
@@ -82,8 +80,8 @@ void problem(int N)
 
 int main(int argc, char const *argv[])
 {
-    // uncomment if manual launch
-    // valgrind --leak-check=full --show-leak-kinds=all ./philosophers_sem 100
+    // use : valgrind --leak-check=full --show-leak-kinds=all ./philosophers_TATAS 4
+    // to check for memory leaks
 
     if (argc != 2)
     {
@@ -92,7 +90,6 @@ int main(int argc, char const *argv[])
     }
     N = atoi(argv[1]);
 
-    // N = 10;
     if (N <= 0)
     {
         printf("Erreur : Le nombre de philosophes (%d) doit être positif!\n", N);

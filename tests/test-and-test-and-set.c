@@ -13,7 +13,6 @@ void process()
 
 void* test(void* arg)
 {
-    //int *lock = (int*)arg;
     int *lock = (int*)arg;
     for (int i = 0; i < 32768/N ; i++)
     {
@@ -60,7 +59,8 @@ void test_init(int N){
 
 int main(int argc, char const *argv[])
 {
-    // valgrind --leak-check=full --show-leak-kinds=all ./tests/test-and-test-and-set 4
+    // use : valgrind --leak-check=full --show-leak-kinds=all ./tests/test-and-test-and-set 4
+    // to check for memory leaks
     if (argc != 2)
     {
         printf("Usage: %s <N>\n", argv[0]);

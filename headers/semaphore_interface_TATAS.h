@@ -44,7 +44,6 @@ void semaphore_destroy(semaphore_t *sem)
         return; // Erreur argument
 
     // Destruction du mutex et de la variable de condition si elles ont été correctement initialisées
-    // free sem->lock ? 
     free(sem->lock);
     if (pthread_cond_destroy(&sem->condition) != 0)
     {
@@ -80,12 +79,12 @@ void semaphore_signal(semaphore_t *sem)
     if (checkArg(sem, "semaphore_signal") == -1)
         return; // Erreur argument
 
-    //pthread_mutex_lock(&sem->lock); // Entrée dans la section critique
+    // Entrée dans la section critique
     lock_lock(sem->lock);
 
     sem->value++;                         // Augmente le nombre de ressources disponibles
     pthread_cond_signal(&sem->condition); // Réveille un thread en attente
 
-    //pthread_mutex_unlock(&sem->lock); // Sortie de la section critique
+    // Sortie de la section critique
     unlock_lock(sem->lock);
 }

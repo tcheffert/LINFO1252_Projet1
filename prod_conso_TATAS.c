@@ -53,7 +53,6 @@ void *producer(void *arg)
         // Simule une production en dehors de la zone critique
         process();
 
-        // item = produce(item);
         semaphore_wait(&empty);           // attente d’une place libre
         lock_lock(mutex); // Mutual exclusion
 

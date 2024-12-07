@@ -53,7 +53,6 @@ void *producer(void *arg)
         // Simule une production en dehors de la zone critique
         process();
 
-        // item = produce(item);
         semaphore_wait(&empty);           // attente d’une place libre
         lock_lock(mutex); // Mutual exclusion
 
@@ -125,12 +124,10 @@ int main(int argc, char const *argv[])
     for (int i = 0; i < num_producers; i++)
     {
         pthread_create(&producers[i], NULL, producer, NULL);
-        // printf("Producer thread %d created\n", i);  // Debug message
     }
     for (int i = 0; i < num_consumers; i++)
     {
         pthread_create(&consumers[i], NULL, consumer, NULL);
-        // printf("Consumer thread %d created\n", i);  // Debug message
     }
 
     // On attend que tous les threads finissent
