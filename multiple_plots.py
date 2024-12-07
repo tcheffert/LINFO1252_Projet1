@@ -105,18 +105,7 @@ def plot_multiple_datasets(datasets, labels, title, output_file, colors=None, sa
 plotsColor2D = ["cornflowerblue","darkseagreen"]
 plotsColor3D = ["slateblue","mediumseagreen","indianred"]
 
-
-# Plot for Producers/Consumers
-"""
-plot_multiple_datasets(
-    datasets=[test_and_set_data_local, test_and_set_data_studsrv],
-    labels=["Local", "Studsrv"],
-    title="Performance Test and Set",
-    output_file="test_and_set_comparaison",
-    colors=plotsColor2D,
-    saveFig=False
-)
-"""
+save = False
 
 # Plot for task 2.3
 plot_multiple_datasets(
@@ -125,9 +114,8 @@ plot_multiple_datasets(
     title='Performance "Test and Set" vs "Test and Test and Set" algorithms (2.2 & 2.3)',
     output_file="TAS_vs_TATAS_comparaison",
     colors=plotsColor2D,
-    saveFig=False
+    saveFig=save
 )
-"""
 
 # Plot for task 2.5
 # comparaison between philo , philo tas and philo tatas
@@ -137,7 +125,7 @@ plot_multiple_datasets(
     title="Performance of the Philosophers Problem (1.1)",
     output_file="philo_comparaison",
     colors=plotsColor3D,
-    saveFig=True
+    saveFig=save
 )
 # comparaison between rw , rw tas and rw tatas
 plot_multiple_datasets(
@@ -146,7 +134,7 @@ plot_multiple_datasets(
     title="Performance of the Readers/Writers Problem (1.3)",
     output_file="rw_comparaison",
     colors=plotsColor3D,
-    saveFig=True
+    saveFig=save
 )
 
 # comparaison between pc , pc tas and pc tatas
@@ -156,6 +144,5 @@ plot_multiple_datasets(
     title="Performance of the Producers/Consumers Problem (1.2)",
     output_file="pc_comparaison",
     colors=plotsColor3D,
-    saveFig=True
+    saveFig=save
 )
-"""
