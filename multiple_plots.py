@@ -116,7 +116,7 @@ plot_multiple_datasets(
     colors=plotsColor2D,
     saveFig=False
 )
-"""
+
 # Plot for task 2.3
 plot_multiple_datasets(
     datasets=[test_and_set_data_studsrv, test_and_test_and_set_data_studsrv],
@@ -146,6 +146,7 @@ plot_multiple_datasets(
     colors=plotsColor3D,
     saveFig=True
 )
+"""
 # comparaison between pc , pc tas and pc tatas
 plot_multiple_datasets(
     datasets=[pc_data, pc_data_TAS, pc_data_TATAS],
